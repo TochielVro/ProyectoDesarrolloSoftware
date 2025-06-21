@@ -1,11 +1,23 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
-app.use(cors());
+
+// Importar rutas
+const authRoutes = require('./Routes/auth.routes');
+const emprendimientoRoutes = require('./Routes/emprendimientos.routes');
+const comentarioRoutes = require('./Routes/comentarios.routes');
+const reporteRoutes = require('./Routes/reportes.routes');
+
+// Middleware para parsear JSON
 app.use(express.json());
-app.get('/', (req, res) => {
-res.send('API Sistema de Ventas');
-});
-app.listen(3001, () => {
-console.log('Servidor en http://localhost:3001');
+
+// Asignar rutas
+app.use('/api/auth', authRoutes);
+app.use('/api/emprendimientos', emprendimientoRoutes);
+app.use('/api/comentarios', comentarioRoutes);
+app.use('/api/reportes', reporteRoutes);
+
+// Iniciar servidor
+const PORT = 3001;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
