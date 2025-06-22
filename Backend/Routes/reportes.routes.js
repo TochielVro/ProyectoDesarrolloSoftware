@@ -1,18 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const { verificarToken, esAdmin } = require('../Middlewares/auth');
 const {
   crearReporte,
-  listarReportes,
   resolverReporte
 } = require('../Controllers/reportes.controller');
 
-// POST /api/reportes (Crear reporte)
-router.post('/', crearReporte);
+// POST /api/reportes (protegido)
+router.post('/', verificarToken, crearReporte);
 
-// GET /api/reportes (Listar todos - solo admin)
-router.get('/', listarReportes);
-
-// PUT /api/reportes/:id/resolver (Resolver reporte - solo admin)
-router.put('/:id/resolver', resolverReporte);
+// PATCH /api/reportes/resolver (solo admin)
+router.patch('/resolver', verificarToken, esAdmin, resolverReporte);
 
 module.exports = router;

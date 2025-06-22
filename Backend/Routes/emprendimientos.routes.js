@@ -1,22 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const { verificarToken } = require('../Middlewares/auth');
+const upload = require('../Middlewares/upload');
 const {
   crearEmprendimiento,
-  listarEmprendimientos,
-  obtenerEmprendimiento,
-  eliminarEmprendimiento
+  listarEmprendimientos
 } = require('../Controllers/emprendimientos.controller');
 
-// GET /api/emprendimientos (Listar todos)
+// GET /api/emprendimientos (público)
 router.get('/', listarEmprendimientos);
 
-// GET /api/emprendimientos/:id (Obtener uno)
-router.get('/:id', obtenerEmprendimiento);
-
-// POST /api/emprendimientos (Crear)
-router.post('/', crearEmprendimiento);
-
-// DELETE /api/emprendimientos/:id (Eliminar)
-router.delete('/:id', eliminarEmprendimiento);
+// POST /api/emprendimientos (protegido)
+router.post('/', verificarToken, upload.single('imagen'), crearEmprendimiento);
 
 module.exports = router;
