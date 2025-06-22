@@ -7,7 +7,7 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'Public', 'uploads')));
 
 // Rutas
 const authRoutes = require('./Routes/auth.routes');
