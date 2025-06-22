@@ -1,23 +1,33 @@
+require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
+const path = require('path');
 const app = express();
 
-// Importar rutas
+// Middlewares
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
+
+// Rutas
 const authRoutes = require('./Routes/auth.routes');
 const emprendimientoRoutes = require('./Routes/emprendimientos.routes');
 const comentarioRoutes = require('./Routes/comentarios.routes');
 const reporteRoutes = require('./Routes/reportes.routes');
 
-// Middleware para parsear JSON
-app.use(express.json());
-
-// Asignar rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/emprendimientos', emprendimientoRoutes);
 app.use('/api/comentarios', comentarioRoutes);
 app.use('/api/reportes', reporteRoutes);
 
+// Manejo de errores
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Error interno del servidor' });
+});
+
 // Iniciar servidor
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
