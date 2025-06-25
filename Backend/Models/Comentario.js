@@ -21,6 +21,28 @@ class Comentario {
         );
         return rows;
     }
+
+    static async obtenerPorId(id_comentario) {
+        const [rows] = await db.query(
+            'SELECT * FROM comentarios WHERE id_comentario = ?',
+            [id_comentario]
+        );
+        return rows[0];
+    }
+
+    static async actualizar(id_comentario, contenido, puntuacion) {
+        await db.query(
+            'UPDATE comentarios SET contenido = ?, puntuacion = ? WHERE id_comentario = ?',
+            [contenido, puntuacion, id_comentario]
+        );
+    }
+
+    static async eliminar(id_comentario) {
+        await db.query(
+            'DELETE FROM comentarios WHERE id_comentario = ?',
+            [id_comentario]
+        );
+    }
 }
 
 module.exports = Comentario;
