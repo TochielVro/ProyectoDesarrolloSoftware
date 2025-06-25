@@ -15,8 +15,8 @@ class Reporte {
         const [rows] = await db.query(
             `SELECT r.*, e.nombre as nombre_emprendimiento, u.nombre as nombre_reportador
             FROM reportes r
-            JOIN emprendimientos e ON r.id_emprendimiento = e.id_emprendimiento
-            JOIN usuarios u ON r.id_usuario_reportador = u.id_usuario
+            INNER JOIN emprendimientos e ON r.id_emprendimiento = e.id_emprendimiento
+            INNER JOIN usuarios u ON r.id_usuario_reportador = u.id_usuario
             WHERE r.estado = 'pendiente'`
         );
         return rows;
@@ -29,6 +29,12 @@ class Reporte {
             WHERE id_reporte = ?`,
             [estado, id_admin_resolutor, id_reporte]
         );
+        // Devuelve el reporte actualizado
+        const [reporte] = await db.query(
+            "SELECT * FROM reportes WHERE id_reporte = ?",
+            [id_reporte]
+        );
+        return reporte[0];
     }
 }
 
