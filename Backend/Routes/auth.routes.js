@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { register, login } = require('../Controllers/auth.controller');
+const { register, login, actualizarNombre, eliminarCuenta } = require('../Controllers/auth.controller');
+const { verificarToken } = require('../Middlewares/auth');
 
-// POST /api/auth/register
+// Registro y Login
 router.post('/register', register);
-
-// POST /api/auth/login
 router.post('/login', login);
+
+// Rutas protegidas (requieren token)
+router.put('/actualizar-nombre', verificarToken, actualizarNombre);
+router.delete('/eliminar-cuenta', verificarToken, eliminarCuenta);
 
 module.exports = router;
