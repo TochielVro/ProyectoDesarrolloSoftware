@@ -32,6 +32,36 @@ class Emprendimiento {
             [id]
         );
     }
+        static async actualizar(
+        id,
+        nombre,
+        descripcion,
+        imagen_url,
+        celular,
+        facebook_url,
+        instagram_url,
+        otra_red_social
+    ) {
+        await db.query(
+            `UPDATE emprendimientos SET
+                nombre = ?,
+                descripcion = ?,
+                imagen_url = COALESCE(?, imagen_url),
+                celular = ?,
+                facebook_url = ?,
+                instagram_url = ?,
+                otra_red_social = ?
+            WHERE id_emprendimiento = ?`,
+            [nombre, descripcion, imagen_url, celular, facebook_url, instagram_url, otra_red_social, id]
+        );
+    }
+
+    static async eliminar(id) {
+        await db.query(
+            'DELETE FROM emprendimientos WHERE id_emprendimiento = ?',
+            [id]
+        );
+    }
 }
 
 module.exports = Emprendimiento;
