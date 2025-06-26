@@ -1,15 +1,13 @@
 import React from 'react';
-import { Container, Navbar } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 const Footer = () => {
   return (
-    <Navbar bg="dark" variant="dark" className="mt-5">
-      <Container className="justify-content-center">
-        <Navbar.Text>
-          © {new Date().getFullYear()} Emprendimientos - Todos los derechos reservados
-        </Navbar.Text>
+    <footer className="footer-custom py-3 mt-auto">
+      <Container className="text-center">
+        <span>© {new Date().getFullYear()} LocaLink - Conectando con emprendimientos locales</span>
       </Container>
-    </Navbar>
+    </footer>
   );
 };
 
