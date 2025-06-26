@@ -2,11 +2,12 @@ const Emprendimiento = require('../Models/Emprendimiento');
 const upload = require('../Middlewares/upload');
 const db = require('../Database/connection');
 const fs = require('fs');
+const path = require('path');
 
 const crearEmprendimiento = async (req, res) => {
   try {
     const { id_usuario, nombre, descripcion, celular } = req.body;
-    const imagenUrl = req.file ? `/uploads/${req.file.filename}` : null;
+    const imagenUrl = req.file ? `uploads/${req.file.filename}` : null;
 
     const emprendimiento = await Emprendimiento.crear(
       id_usuario,
@@ -38,19 +39,23 @@ const actualizarEmprendimiento = async (req, res) => {
   try {
     const { id } = req.params;
     const { nombre, descripcion, celular } = req.body;
-    const imagenUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
+    const imagenUrl = req.file ? `uploads/${req.file.filename}` : undefined;
 
     // Validar propiedad
-    const [emprendimiento] = await db.query(
+    const result = await db.query(
       'SELECT id_usuario FROM emprendimientos WHERE id_emprendimiento = ?',
       [id]
     );
+    const emprendimiento = result[0][0]; // Tomar el primer elemento del array
+
+
     if (!emprendimiento) {
       return res.status(404).json({ error: 'Emprendimiento no encontrado' });
     }
     if (emprendimiento.id_usuario !== req.user.id && !req.user.esAdmin) {
       return res.status(403).json({ error: 'No tienes permiso para editar este emprendimiento' });
     }
+    
 
     // Eliminar imagen anterior si se sube una nueva
     if (imagenUrl) {
@@ -86,10 +91,12 @@ const eliminarEmprendimiento = async (req, res) => {
     const { id } = req.params;
 
     // Validar propiedad
-    const [emprendimiento] = await db.query(
+    const [rows] = await db.query(
       'SELECT id_usuario, imagen_url FROM emprendimientos WHERE id_emprendimiento = ?',
       [id]
     );
+    const emprendimiento = rows[0];
+
     if (!emprendimiento) {
       return res.status(404).json({ error: 'Emprendimiento no encontrado' });
     }
@@ -99,7 +106,15 @@ const eliminarEmprendimiento = async (req, res) => {
 
     // Eliminar imagen asociada
     if (emprendimiento.imagen_url) {
-      fs.unlinkSync(path.join(__dirname, '../Public', emprendimiento.imagen_url));
+      try {
+        const imagePath = path.join(__dirname, '../Public', emprendimiento.imagen_url);
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
+      } catch (error) {
+        console.log('Error al eliminar imagen:', error.message);
+        // Continuamos con la eliminación del emprendimiento aunque falle la imagen
+      }
     }
 
     await Emprendimiento.eliminar(id);
@@ -134,6 +149,20 @@ const obtenerPorUsuario = async (req, res) => {
   }
 };
 
+const obtenerPorId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const emprendimiento = await Emprendimiento.obtenerPorId(id);
+    if (!emprendimiento) {
+      return res.status(404).json({ error: 'Emprendimiento no encontrado' });
+    }
+    res.json(emprendimiento);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 module.exports = {
   crearEmprendimiento,
   listarEmprendimientos,
@@ -141,5 +170,6 @@ module.exports = {
   obtenerUltimo,
   obtenerPorUsuario,
   obtenerMasValorados,
-  eliminarEmprendimiento
+  eliminarEmprendimiento,
+  obtenerPorId
 };
