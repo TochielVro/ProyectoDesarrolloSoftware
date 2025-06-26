@@ -8,9 +8,7 @@ const {
   actualizarEmprendimiento,
   eliminarEmprendimiento,
   obtenerPorUsuario,
-  obtenerPorId,
-  obtenerMasValorados,
-  obtenerUltimo
+  obtenerPorId  
 } = require('../Controllers/emprendimientos.controller');
 
 // GET /api/emprendimientos (público)
@@ -25,17 +23,9 @@ router.put('/:id', verificarToken, upload.single('imagen'), actualizarEmprendimi
 // DELETE /api/emprendimientos/:id (protegido, solo dueño o admin)
 router.delete('/:id', verificarToken, eliminarEmprendimiento);
 
-// Agrega esto en emprendimientos.routes.js
-router.get('/usuario/:id_usuario', verificarToken, obtenerPorUsuario);
 
 router.get('/:id', obtenerPorId);
 
-// Endpoints para obtener los emprendimientos más valorados
-router.get('/mas-valorados', obtenerMasValorados);
-
-
-// Endpoints para obtener el ultimo emprendimiento creado y por usuario
-router.get('/ultimo', obtenerUltimo);
-
+router.get('/usuario/:id_usuario', verificarToken, obtenerPorUsuario);
 
 module.exports = router;

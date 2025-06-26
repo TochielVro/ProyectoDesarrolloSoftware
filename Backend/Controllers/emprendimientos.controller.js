@@ -7,7 +7,7 @@ const path = require('path');
 const crearEmprendimiento = async (req, res) => {
   try {
     const { id_usuario, nombre, descripcion, celular } = req.body;
-    const imagenUrl = req.file ? `uploads/${req.file.filename}` : null;
+    const imagenUrl = req.file ? `/uploads/${req.file.filename}` : null;
 
     const emprendimiento = await Emprendimiento.crear(
       id_usuario,
@@ -39,7 +39,7 @@ const actualizarEmprendimiento = async (req, res) => {
   try {
     const { id } = req.params;
     const { nombre, descripcion, celular } = req.body;
-    const imagenUrl = req.file ? `uploads/${req.file.filename}` : undefined;
+    const imagenUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
 
     // Validar propiedad
     const result = await db.query(
@@ -171,5 +171,5 @@ module.exports = {
   obtenerPorUsuario,
   obtenerMasValorados,
   eliminarEmprendimiento,
-  obtenerPorId
+  obtenerPorId
 };
