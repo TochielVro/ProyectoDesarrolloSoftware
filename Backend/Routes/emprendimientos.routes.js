@@ -8,9 +8,10 @@ const {
   actualizarEmprendimiento,
   eliminarEmprendimiento,
   obtenerPorUsuario,
-  obtenerPorId
+  obtenerPorId,
+  obtenerMasValorados,
+  obtenerUltimo
 } = require('../Controllers/emprendimientos.controller');
-
 
 // GET /api/emprendimientos (público)
 router.get('/', listarEmprendimientos);
@@ -28,5 +29,13 @@ router.delete('/:id', verificarToken, eliminarEmprendimiento);
 router.get('/usuario/:id_usuario', verificarToken, obtenerPorUsuario);
 
 router.get('/:id', obtenerPorId);
+
+// Endpoints para obtener los emprendimientos más valorados
+router.get('/mas-valorados', obtenerMasValorados);
+
+
+// Endpoints para obtener el ultimo emprendimiento creado y por usuario
+router.get('/ultimo', obtenerUltimo);
+
 
 module.exports = router;
