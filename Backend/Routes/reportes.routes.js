@@ -18,11 +18,4 @@ router.get('/', verificarToken, esAdmin, listarReportesPendientes);
 router.patch('/resolver', verificarToken, esAdmin, resolverReporte);
 
 
-// Endpoints para obtener los emprendimientos más valorados
-router.get('/mas-valorados', obtenerMasValorados);
-
-
-// Endpoints para obtener el ultimo emprendimiento creado y por usuario
-router.get('/ultimo', obtenerUltimo);
-
 module.exports = router;
