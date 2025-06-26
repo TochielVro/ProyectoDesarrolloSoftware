@@ -10,13 +10,10 @@ const MainLayout = () => {
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
       <Container fluid className="flex-grow-1">
-        <Row className="h-100">
-          {/* Sidebar - ocupa 3 columnas en pantallas grandes */}
+        <Row>
           <Col lg={3} className="d-none d-lg-block p-0">
             <Sidebar />
           </Col>
-          
-          {/* Contenido principal - ocupa 9 columnas en pantallas grandes */}
           <Col lg={9} className="py-4">
             <Outlet />
           </Col>
