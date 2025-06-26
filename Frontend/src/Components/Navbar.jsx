@@ -14,13 +14,16 @@ const CustomNavbar = () => {
   };
 
   return (
-    <Navbar expand="lg" className="navbar-custom">
+    <Navbar expand="lg" className="navbar-custom" style={{ minHeight: '80px' }}>
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/" className="p-0 d-flex align-items-center" style={{ height: '80px' }}>
           <img
             src={logo}
-            height="100"
-            className="d-inline-block align-top"
+            style={{ 
+              height: '225px', // Controla el tamaño aquí
+              width: 'auto',
+              objectFit: 'contain'
+            }}
             alt="LocaLink Logo"
           />
         </Navbar.Brand>
@@ -28,11 +31,17 @@ const CustomNavbar = () => {
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
             {isLoggedIn ? (
-              <Nav.Link onClick={handleLogout}>Cerrar Sesión</Nav.Link>
+              <Nav.Link onClick={handleLogout} className="text-white">
+                Cerrar Sesión
+              </Nav.Link>
             ) : (
               <>
-                <Nav.Link as={Link} to="/login">Iniciar Sesión</Nav.Link>
-                <Nav.Link as={Link} to="/register">Registrarse</Nav.Link>
+                <Nav.Link as={Link} to="/login" className="text-white">
+                  Iniciar Sesión
+                </Nav.Link>
+                <Nav.Link as={Link} to="/register" className="text-white">
+                  Registrarse
+                </Nav.Link>
               </>
             )}
           </Nav>

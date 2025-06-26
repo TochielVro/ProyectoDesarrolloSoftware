@@ -3,9 +3,9 @@ import { Container } from 'react-bootstrap';
 
 const Footer = () => {
   return (
-    <footer className="footer-custom py-3 mt-auto">
+    <footer className="footer-custom">
       <Container className="text-center">
-        <span>© {new Date().getFullYear()} LocaLink - Conectando con emprendimientos locales</span>
+        <span>© {new Date().getFullYear()} LocaLink - Conectando emprendimientos locales</span>
       </Container>
     </footer>
   );
