@@ -6,7 +6,8 @@ const {
   crearEmprendimiento,
   listarEmprendimientos,
   actualizarEmprendimiento,
-  eliminarEmprendimiento
+  eliminarEmprendimiento,
+  obtenerPorUsuario
 } = require('../Controllers/emprendimientos.controller');
 
 // GET /api/emprendimientos (público)
@@ -21,4 +22,7 @@ router.put('/:id', verificarToken, upload.single('imagen'), actualizarEmprendimi
 // DELETE /api/emprendimientos/:id (protegido, solo dueño o admin)
 router.delete('/:id', verificarToken, eliminarEmprendimiento);
 
-module.exports = router;
+// Agrega esto en emprendimientos.routes.js
+router.get('/usuario/:id_usuario', verificarToken, obtenerPorUsuario);
+
+module.exports = router;
