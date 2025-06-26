@@ -6,7 +6,6 @@ const {
   resolverReporte,
   listarReportesPendientes
 } = require('../Controllers/reportes.controller');
-const { obtenerMasValorados, obtenerUltimo } = require('../Models/Emprendimiento');
 
 // POST /api/reportes (cualquier usuario autenticado)
 router.post('/', verificarToken, crearReporte);
@@ -16,6 +15,7 @@ router.get('/', verificarToken, esAdmin, listarReportesPendientes);
 
 // PATCH /api/reportes/resolver (solo admin)
 router.patch('/resolver', verificarToken, esAdmin, resolverReporte);
+
 
 
 module.exports = router;
