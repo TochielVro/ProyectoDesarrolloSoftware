@@ -10,7 +10,7 @@ const {
   obtenerPorUsuario,
   obtenerPorId
 } = require('../Controllers/emprendimientos.controller');
-const { obtenerPorId } = require('../Models/Emprendimiento');
+
 
 // GET /api/emprendimientos (público)
 router.get('/', listarEmprendimientos);
