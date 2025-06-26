@@ -4,7 +4,7 @@
   --accent-color: #87cefa;        /* Celeste claro */
   --light-color: #f8f9fa;         /* Fondo claro */
   --dark-color: #343a40;          /* Texto oscuro */
-  --gradient-primary: linear-gradient(135deg, #87cefa 0%, #6a5acd 100%);
+  --gradient-primary: linear-gradient(135deg, #6a5acd 0%, #87cefa 100%);
 }
 
 body {
