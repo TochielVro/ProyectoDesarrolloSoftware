@@ -1,27 +1,49 @@
 :root {
-  --primary-color: #6a5acd;       /* Violeta suave */
+  --primary-color: #6a5acd;       /* Morado suave */
   --secondary-color: #4682b4;     /* Azul acero */
-  --accent-color: #87ceeb;        /* Celeste claro */
-  --light-color: #f8f9fa;         /* Blanco casi puro */
-  --dark-color: #343a40;          /* Gris oscuro */
-  --text-color: #2c3e50;          /* Azul oscuro para texto */
+  --accent-color: #87cefa;        /* Celeste claro */
+  --light-color: #f8f9fa;         /* Fondo claro */
+  --dark-color: #343a40;          /* Texto oscuro */
+  --gradient-primary: linear-gradient(135deg, #87cefa 0%, #6a5acd 100%);
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--text-color);
+  color: var(--dark-color);
   background-color: var(--light-color);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Estilos para botones */
+/* Navbar con degradado */
+.navbar-custom {
+  background: var(--gradient-primary);
+  padding: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-custom .navbar-brand {
+  padding: 0;
+}
+
+/* Eliminamos todos los estilos de img del navbar-brand */
+.navbar-custom .navbar-brand img {
+  all: unset; /* Esto resetea cualquier estilo que pueda estar interfiriendo */
+}
+
+.navbar-custom .nav-link {
+  color: white !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem ;
+}
+
+/* Botones */
 .btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-  background-color: #5f4b8b;
-  border-color: #5f4b8b;
+  background: var(--gradient-primary);
+  border: none;
 }
 
 .btn-outline-primary {
@@ -29,73 +51,46 @@ body {
   border-color: var(--primary-color);
 }
 
-.btn-outline-primary:hover {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-/* Navbar personalizado */
-.navbar-custom {
-  background-color: var(--primary-color);
-}
-
-.navbar-custom .navbar-brand {
-  color: white;
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-.navbar-custom .nav-link {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.navbar-custom .nav-link:hover {
-  color: white;
-}
-
-/* Sidebar personalizado */
-.sidebar {
-  background-color: white;
-  border-right: 1px solid #e9ecef;
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Card personalizada */
+/* Tarjetas de emprendimientos */
 .card-custom {
   border: none;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  height: 100%;
 }
 
 .card-custom:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.card-img-top {
+.card-img-custom {
   height: 200px;
   object-fit: cover;
+  width: 100%;
 }
 
-/* Footer personalizado */
+/* Sidebar */
+.sidebar {
+  background: white;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
 .footer-custom {
-  background-color: var(--primary-color);
+  background: var(--gradient-primary);
   color: white;
+  padding: 1rem 0;
+  margin-top: auto;
 }
 
-/* Añade esto para el logo en el navbar */
-.navbar-brand {
-  padding: 5px 0; /* Ajusta el padding según necesites */
-}
-
-/* Si tu logo tiene fondo blanco y quieres que combine con el navbar */
-.navbar-custom .navbar-brand img {
-  background-color: white;
-  padding: 5px; /* Opcional: espacio alrededor del logo */
-  border-radius: 5px; /* Opcional: esquinas redondeadas */
+/* Contenedor principal */
+.main-content {
+  flex: 1;
 }

@@ -1,9 +1,9 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+/* Eliminamos las restricciones de ancho del root */
+/* Removido: max-width y margin que centraban el contenido */
+/* max-width: 1280px; */
+/* margin: 0 auto; */
+/* padding: 2rem; */
+/* text-align: center; */
 
 .logo {
   height: 6em;
