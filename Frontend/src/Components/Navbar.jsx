@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import logo from '../assets/logo.png'; // Importa tu logo
+import logo from '../assets/Localink.png';
 
 const CustomNavbar = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const CustomNavbar = () => {
         <Navbar.Brand as={Link} to="/">
           <img
             src={logo}
-            height="100" // Ajusta según el tamaño de tu logo
+            height="100"
             className="d-inline-block align-top"
             alt="LocaLink Logo"
           />
