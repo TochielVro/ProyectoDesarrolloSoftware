@@ -108,10 +108,38 @@ const eliminarEmprendimiento = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+const obtenerMasValorados = async (req, res) => {
+  try {
+    const emprendimientos = await Emprendimiento.obtenerMasValorados();
+    res.json(emprendimientos);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const obtenerUltimo = async (req, res) => {
+  try {
+    const emprendimiento = await Emprendimiento.obtenerUltimo();
+    res.json(emprendimiento);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const obtenerPorUsuario = async (req, res) => {
+  try {
+    const { id_usuario } = req.params;
+    const emprendimientos = await Emprendimiento.obtenerPorUsuario(id_usuario);
+    res.json(emprendimientos);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
   crearEmprendimiento,
   listarEmprendimientos,
   actualizarEmprendimiento,
+  obtenerUltimo,
+  obtenerPorUsuario,
+  obtenerMasValorados,
   eliminarEmprendimiento
 };
