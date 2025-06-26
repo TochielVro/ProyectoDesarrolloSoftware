@@ -25,5 +25,4 @@ router.get('/mas-valorados', obtenerMasValorados);
 // Endpoints para obtener el ultimo emprendimiento creado y por usuario
 router.get('/ultimo', obtenerUltimo);
 
-const{obtenerMasValorados, obtenerUltimo} = require('../Controllers/emprendimientos.controller');
 module.exports = router;
