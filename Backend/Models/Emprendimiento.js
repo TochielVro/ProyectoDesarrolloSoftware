@@ -62,6 +62,31 @@ class Emprendimiento {
             [id]
         );
     }
+    static async obtenerUltimo() {
+        const [rows] = await db.query(
+            'SELECT * FROM emprendimientos WHERE esta_activo = TRUE ORDER BY fecha_creacion DESC LIMIT 1'
+        );
+        return rows[0];
+    }
+    static async obtenerMasValorados()
+    {
+        const [rows] = await db.query(`
+        SELECT e.*, AVG(c.puntuacion) as promedio_puntuacion
+        FROM emprendimientos e
+        LEFT JOIN comentarios c ON e.id_emprendimiento = c.id_emprendimiento
+        WHERE e.esta_activo = TRUE
+        GROUP BY e.id_emprendimiento
+        ORDER BY promedio_puntuacion DESC
+        LIMIT 3
+        `);
+        return rows;
+    }
+    static async obtenerPorUsuario(id_usuario) {
+        const [rows] = await db.query(
+            'SELECT * FROM emprendimientos WHERE id_usuario = ? AND esta_activo = TRUE',
+            [id_usuario]
+        );
+        return rows;
+    }
 }
-
 module.exports = Emprendimiento;
