@@ -7,8 +7,10 @@ const {
   listarEmprendimientos,
   actualizarEmprendimiento,
   eliminarEmprendimiento,
-  obtenerPorUsuario
+  obtenerPorUsuario,
+  obtenerPorId
 } = require('../Controllers/emprendimientos.controller');
+const { obtenerPorId } = require('../Models/Emprendimiento');
 
 // GET /api/emprendimientos (público)
 router.get('/', listarEmprendimientos);
@@ -25,4 +27,6 @@ router.delete('/:id', verificarToken, eliminarEmprendimiento);
 // Agrega esto en emprendimientos.routes.js
 router.get('/usuario/:id_usuario', verificarToken, obtenerPorUsuario);
 
-module.exports = router;
+router.get('/:id', obtenerPorId);
+
+module.exports = router;
