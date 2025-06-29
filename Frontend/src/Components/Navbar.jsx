@@ -36,7 +36,7 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
             <Nav.Link as={Link} to="/emprendimientos" className="modern-nav-link">
               Emprendimientos
             </Nav.Link>
-            <Nav.Link as={Link} to="/about" className="modern-nav-link">
+            <Nav.Link as={Link} to="/acerca-de" className="modern-nav-link">
               Acerca de
             </Nav.Link>
           </Nav>
