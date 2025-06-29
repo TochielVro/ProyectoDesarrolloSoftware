@@ -21,6 +21,7 @@ import PreguntasFrecuentes from '../Pages/PreguntasFrecuentes';
 import TerminosUso from '../Pages/TerminosUso';
 
 import Privacidad from '../Pages/Privacidad';
+import ReportarProblema from '../Pages/ReportarProblema';
 
 const AppRoutes = () => {
   return (
@@ -41,6 +42,7 @@ const AppRoutes = () => {
         <Route path="faq" element={<PreguntasFrecuentes />} />
         <Route path="terminos-uso" element={<TerminosUso />} />
         <Route path="privacidad" element={<Privacidad />} />
+        <Route path="reportar-problema" element={<ReportarProblema />} />
       </Route>
     </Routes>
   );

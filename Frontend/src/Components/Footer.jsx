@@ -73,7 +73,7 @@ const Footer = ({ darkMode }) => {
                   <li><Link to="/faq">Preguntas Frecuentes</Link></li>
                   <li><Link to="/terminos-uso">Términos de Uso</Link></li>
                   <li><Link to="/privacidad">Privacidad</Link></li>
-                  <li><Link to="/reportar">Reportar Problema</Link></li>
+                  <li><Link to="/reportar-problema">Reportar Problema</Link></li>
                 </ul>
               </div>
             </Col>
