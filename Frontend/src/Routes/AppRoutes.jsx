@@ -18,6 +18,8 @@ import Recursos from '../Pages/Recursos';
 import Ayuda from '../Pages/Ayuda';
 
 import PreguntasFrecuentes from '../Pages/PreguntasFrecuentes';
+import TerminosUso from '../Pages/TerminosUso';
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -35,6 +37,7 @@ const AppRoutes = () => {
         <Route path="recursos" element={<Recursos />} />
         <Route path="ayuda" element={<Ayuda />} />
         <Route path="faq" element={<PreguntasFrecuentes />} />
+        <Route path="terminos-uso" element={<TerminosUso />} />
       </Route>
     </Routes>
   );

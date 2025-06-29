@@ -71,7 +71,7 @@ const Footer = ({ darkMode }) => {
                 <h6 className="footer-title">Soporte</h6>
                 <ul className="footer-links">
                   <li><Link to="/faq">Preguntas Frecuentes</Link></li>
-                  <li><Link to="/terminos">Términos de Uso</Link></li>
+                  <li><Link to="/terminos-uso">Términos de Uso</Link></li>
                   <li><Link to="/privacidad">Privacidad</Link></li>
                   <li><Link to="/reportar">Reportar Problema</Link></li>
                 </ul>
