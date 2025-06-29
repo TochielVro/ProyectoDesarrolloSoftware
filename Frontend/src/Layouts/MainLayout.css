@@ -1,0 +1,159 @@
+/* Mover las variables CSS al :root para que sean globales */
+:root {
+  /* Variables por defecto (tema claro) */
+  --bg-main: #ffffff;
+  --text-main: #000000;
+  --bg-sidebar: #f8f9fa;
+  --border-sidebar: #dee2e6;
+  --bg-content: #f8f9fa;
+  --sidebar-width: 500px; /* Variable para el ancho del sidebar */
+  --gap-width: 80px; /* Ancho de la columna separadora */
+  --gap-color: #f8f9fa; /* Color de la columna separadora (tema claro) */
+}
+
+/* Variables para tema oscuro */
+[data-bs-theme="dark"], 
+body.dark-theme {
+  --bg-main: #121212;
+  --text-main: #ffffff;
+  --bg-sidebar: #1e1e1e;
+  --border-sidebar: #333;
+  --bg-content: #181818;
+  --gap-color: #181818; /* Color de la columna separadora (tema oscuro) */
+}
+
+.main-layout-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  z-index: 1000;
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-sidebar);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.main-content-area {
+  margin-left: calc(var(--sidebar-width) + var(--gap-width)); /* Sidebar + gap */
+  width: calc(100% - var(--sidebar-width) - var(--gap-width)); /* Resto del espacio */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-main);
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+/* Columna separadora */
+.main-content-area::before {
+  content: '';
+  position: fixed;
+  left: var(--sidebar-width);
+  top: 0;
+  width: var(--gap-width);
+  height: 100vh;
+  background-color: var(--gap-color);
+  z-index: 999;
+  transition: background-color 0.3s ease;
+}
+
+.content-area {
+  flex: 1;
+  background-color: var(--bg-content);
+  transition: background-color 0.3s ease;
+}
+
+/* Específicamente para tema oscuro */
+body.dark-theme .gap-area {
+  background-color: #121212 !important;
+}
+
+/* Específicamente para tema claro */
+body.light-theme .gap-area,
+[data-bs-theme="light"] .gap-area {
+  background-color: #ffffff !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar-container {
+    width: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .main-content-area {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  /* Ocultar la columna separadora en móvil */
+  .main-content-area::before {
+    display: none;
+  }
+
+  .sidebar-container.show {
+    width: 250px;
+    transform: translateX(0);
+  }
+}
+
+/* Estilos específicos en modo oscuro */
+body.dark-theme .card {
+  background-color: #1e1e1e !important;
+  border-color: #333 !important;
+  color: #ffffff !important;
+}
+
+body.dark-theme .btn-outline-secondary {
+  border-color: #6c757d !important;
+  color: #6c757d !important;
+}
+
+body.dark-theme .btn-outline-secondary:hover {
+  background-color: #6c757d !important;
+  color: #ffffff !important;
+}
+
+/* Botón de cambio de modo */
+.dark-mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+  background: var(--bg-sidebar);
+  border: 2px solid var(--border-sidebar);
+  border-radius: 50px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: var(--text-main);
+}
+
+.dark-mode-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-icon {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-text {
+  font-size: 14px;
+  font-weight: 500;
+}
