@@ -20,6 +20,8 @@ import Ayuda from '../Pages/Ayuda';
 import PreguntasFrecuentes from '../Pages/PreguntasFrecuentes';
 import TerminosUso from '../Pages/TerminosUso';
 
+import Privacidad from '../Pages/Privacidad';
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -38,6 +40,7 @@ const AppRoutes = () => {
         <Route path="ayuda" element={<Ayuda />} />
         <Route path="faq" element={<PreguntasFrecuentes />} />
         <Route path="terminos-uso" element={<TerminosUso />} />
+        <Route path="privacidad" element={<Privacidad />} />
       </Route>
     </Routes>
   );
