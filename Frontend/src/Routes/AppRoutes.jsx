@@ -15,6 +15,7 @@ import AcercaDe from '../Pages/AcercaDe';
 import Contacto from '../Pages/Contacto';
 
 import Recursos from '../Pages/Recursos';
+import Ayuda from '../Pages/Ayuda';
 
 const AppRoutes = () => {
   return (
@@ -31,6 +32,7 @@ const AppRoutes = () => {
         <Route path="acerca-de" element={<AcercaDe />} />
         <Route path="contacto" element={<Contacto />} />
         <Route path="recursos" element={<Recursos />} />
+        <Route path="ayuda" element={<Ayuda />} />
       </Route>
     </Routes>
   );
