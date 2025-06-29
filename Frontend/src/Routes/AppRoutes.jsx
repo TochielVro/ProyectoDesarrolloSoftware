@@ -11,6 +11,10 @@ import CrearEmprendimiento from '../Pages/CrearEmprendimiento';
 import EditarEmprendimiento from '../Pages/EditarEmprendimiento';
 import DetalleEmprendimiento from '../Pages/DetalleEmprendimiento'; // Importamos el componenete para ar calificacion a los emprendimiento
 
+import AcercaDe from '../Pages/AcercaDe';
+import Contacto from '../Pages/Contacto';
+
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -23,6 +27,8 @@ const AppRoutes = () => {
         <Route path="crear-emprendimiento" element={<CrearEmprendimiento />} />
         <Route path="editar-emprendimiento/:id" element={<EditarEmprendimiento />} />
         <Route path="emprendimiento/:id" element={<DetalleEmprendimiento />} />
+        <Route path="acerca-de" element={<AcercaDe />} />
+        <Route path="contacto" element={<Contacto />} />
       </Route>
     </Routes>
   );

@@ -44,8 +44,10 @@ const Footer = ({ darkMode }) => {
                 <ul className="footer-links">
                   <li><Link to="/">Inicio</Link></li>
                   <li><Link to="/emprendimientos">Emprendimientos</Link></li>
-                  <li><Link to="/about">Acerca de</Link></li>
-                  <li><Link to="/contact">Contacto</Link></li>
+                  <li><Link to="/acerca-de">Acerca de</Link></li>
+                  <li><Link to="/contacto">Contacto</Link></li>
+                  {/* <li><Link to="/about">Acerca de</Link></li>
+                  <li><Link to="/contact">Contacto</Link></li> */}
                 </ul>
               </div>
             </Col>
