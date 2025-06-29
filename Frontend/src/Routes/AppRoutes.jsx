@@ -14,6 +14,7 @@ import DetalleEmprendimiento from '../Pages/DetalleEmprendimiento'; // Importamo
 import AcercaDe from '../Pages/AcercaDe';
 import Contacto from '../Pages/Contacto';
 
+import Recursos from '../Pages/Recursos';
 
 const AppRoutes = () => {
   return (
@@ -29,6 +30,7 @@ const AppRoutes = () => {
         <Route path="emprendimiento/:id" element={<DetalleEmprendimiento />} />
         <Route path="acerca-de" element={<AcercaDe />} />
         <Route path="contacto" element={<Contacto />} />
+        <Route path="recursos" element={<Recursos />} />
       </Route>
     </Routes>
   );
