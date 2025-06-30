@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import './Sidebar.css';
 
-const Sidebar = ({ darkMode }) => {
+const Sidebar = ({ darkMode, closeSidebar, isMobile }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,6 +48,13 @@ const Sidebar = ({ darkMode }) => {
       .slice(0, 2);
   };
 
+  // Función para manejar clicks en enlaces (cerrar sidebar en móvil)
+  const handleLinkClick = () => {
+    if (isMobile && closeSidebar) {
+      closeSidebar();
+    }
+  };
+
   if (isLoading) {
     return (
       <div className={`sidebar ${darkMode ? 'dark' : ''} ${isLoading ? 'loading' : ''}`}>
@@ -83,6 +90,7 @@ const Sidebar = ({ darkMode }) => {
               to="/emprendimientos" 
               variant="outline-primary" 
               className="btn-modern mb-2"
+              onClick={handleLinkClick}
             >
               🏪 Explorar Emprendimientos
             </Button>
@@ -91,6 +99,7 @@ const Sidebar = ({ darkMode }) => {
               to="/mis-emprendimientos" 
               variant="outline-primary" 
               className="btn-modern"
+              onClick={handleLinkClick}
             >
               📊 Mis Emprendimientos
             </Button>
@@ -106,6 +115,7 @@ const Sidebar = ({ darkMode }) => {
               to="/register" 
               variant="primary" 
               className="btn-login mb-2"
+              onClick={handleLinkClick}
             >
               ✨ Registrarse
             </Button>
@@ -114,6 +124,7 @@ const Sidebar = ({ darkMode }) => {
               to="/login" 
               variant="outline-primary" 
               className="btn-login"
+              onClick={handleLinkClick}
             >
               🚀 Iniciar Sesión
             </Button>
@@ -191,6 +202,20 @@ const Sidebar = ({ darkMode }) => {
           </p>
         </Card.Body>
       </Card>
+
+      {/* Botón para cerrar en móvil (opcional) */}
+      {isMobile && (
+        <div className="text-center mt-3">
+          <Button 
+            variant="outline-secondary" 
+            size="sm" 
+            onClick={closeSidebar}
+            className="btn-close-sidebar"
+          >
+            ✕ Cerrar menú
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
