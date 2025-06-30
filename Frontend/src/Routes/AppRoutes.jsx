@@ -24,6 +24,9 @@ import TerminosUso from '../Pages/TerminosUso';
 import Privacidad from '../Pages/Privacidad';
 import ReportarProblema from '../Pages/ReportarProblema';
 
+import TodosEmprendimientos from '../Pages/TodosEmprendimientos';
+
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -44,6 +47,7 @@ const AppRoutes = () => {
         <Route path="terminos-uso" element={<TerminosUso />} />
         <Route path="privacidad" element={<Privacidad />} />
         <Route path="reportar-problema" element={<ReportarProblema />} />
+        <Route path="emprendimientos" element={<TodosEmprendimientos />} />
       </Route>
     </Routes>
   );
