@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Container, Card, Spinner, Form, Button, Alert, 
-  Row, Col, Badge, ListGroup
+  Row, Col, Badge, ListGroup, Modal
 } from 'react-bootstrap';
 import { 
   FaStar, FaRegStar, FaPhone, FaFacebook, 
-  FaInstagram, FaLink, FaUser, FaArrowLeft 
+  FaInstagram, FaLink, FaUser, FaArrowLeft, FaFlag 
 } from 'react-icons/fa';
 import api from '../services/api';
 import '../index.css';
@@ -15,47 +15,40 @@ const DetalleEmprendimiento = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [emprendimiento, setEmprendimiento] = useState(null);
-  const [usuario, setUsuario] = useState(null);
   const [comentarios, setComentarios] = useState([]);
   const [puntuacion, setPuntuacion] = useState(0);
   const [contenido, setContenido] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [loading, setLoading] = useState(true);
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [reporteMotivo, setReporteMotivo] = useState('');
+  const [reporteError, setReporteError] = useState('');
 
-  // Función para cargar comentarios
-  const fetchComentarios = async () => {
+  // Función para cargar datos del emprendimiento y comentarios
+  const fetchData = async () => {
     try {
-      const res = await api.get(`/comentarios/${id}`);
-      setComentarios(res.data);
+      setLoading(true);
+      const [resEmprendimiento, resComentarios] = await Promise.all([
+        api.get(`/emprendimientos/${id}`),
+        api.get(`/comentarios/${id}`)
+      ]);
+      
+      setEmprendimiento(resEmprendimiento.data);
+      setComentarios(resComentarios.data);
     } catch (err) {
-      console.error('Error al cargar comentarios', err);
+      console.error('Error al cargar datos:', err);
+      setMensaje('Error al cargar los datos del emprendimiento');
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Función para cargar datos del emprendimiento y usuario
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resEmprendimiento = await api.get(`/emprendimientos/${id}`);
-        setEmprendimiento(resEmprendimiento.data);
-        
-        if (resEmprendimiento.data.id_usuario) {
-          const resUsuario = await api.get(`/usuarios/${resEmprendimiento.data.id_usuario}`);
-          setUsuario(resUsuario.data);
-        }
-        
-        await fetchComentarios();
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchData();
   }, [id]);
 
   // Función para manejar el envío de comentarios
-  const handleEnviar = async () => {
+  const handleEnviarComentario = async () => {
     if (puntuacion < 1 || puntuacion > 5) {
       setMensaje('Selecciona una puntuación entre 1 y 5 estrellas');
       return;
@@ -76,11 +69,35 @@ const DetalleEmprendimiento = () => {
       setMensaje('¡Comentario enviado con éxito!');
       setContenido('');
       setPuntuacion(0);
-      fetchComentarios();
+      // Recargar comentarios después de enviar uno nuevo
+      const res = await api.get(`/comentarios/${id}`);
+      setComentarios(res.data);
     } catch (err) {
       setMensaje(err.response?.data?.error || 'Error al enviar comentario');
     }
   };
+
+  // Función para manejar el reporte
+const handleReportar = async () => {
+  if (reporteMotivo.length < 10) {
+    setReporteError('El motivo debe tener al menos 10 caracteres');
+    return;
+  }
+
+  try {
+    await api.post('/reportes', {
+      id_emprendimiento: id,
+      motivo: reporteMotivo
+    });
+
+    setReporteError('');
+    setReporteMotivo('');
+    setShowReportModal(false);
+    setMensaje('Reporte enviado correctamente. Gracias por tu feedback.');
+  } catch (err) {
+    setReporteError(err.response?.data?.error || 'Error al enviar reporte');
+  }
+};
 
   if (loading) {
     return (
@@ -89,6 +106,19 @@ const DetalleEmprendimiento = () => {
       </Container>
     );
   }
+
+  if (!emprendimiento) {
+    return (
+      <Container className="my-4">
+        <Alert variant="danger">No se pudo cargar el emprendimiento</Alert>
+      </Container>
+    );
+  }
+
+  // Calcular puntuación promedio
+  const promedioPuntuacion = comentarios.length > 0 
+    ? (comentarios.reduce((acc, c) => acc + c.puntuacion, 0) / comentarios.length)
+    : 0;
 
   return (
     <Container className="my-4">
@@ -100,9 +130,18 @@ const DetalleEmprendimiento = () => {
         <FaArrowLeft /> Volver
       </Button>
 
+      {/* Botón para reportar */}
+      <Button 
+        variant="outline-danger" 
+        onClick={() => setShowReportModal(true)}
+        className="ms-2 mb-3"
+      >
+        <FaFlag /> Reportar
+      </Button>
+
       <Card className="shadow-sm border-0">
         <Row className="g-0">
-          {/* Columna de la imagen (controlada en tamaño) */}
+          {/* Columna de la imagen */}
           <Col md={5}>
             <Card.Img
               src={`http://localhost:3001${emprendimiento.imagen_url}`}
@@ -136,7 +175,7 @@ const DetalleEmprendimiento = () => {
                     fontSize: '1rem'
                   }}
                 >
-                  ⭐ {comentarios.reduce((acc, c) => acc + c.puntuacion, 0) / comentarios.length || 'Nuevo'}
+                  ⭐ {promedioPuntuacion.toFixed(1) || 'Nuevo'}
                 </Badge>
               </div>
 
@@ -245,7 +284,7 @@ const DetalleEmprendimiento = () => {
                     />
                   </Form.Group>
                   <Button 
-                    onClick={handleEnviar}
+                    onClick={handleEnviarComentario}
                     style={{
                       background: 'linear-gradient(135deg, #6a5acd 0%, #87cefa 100%)',
                       border: 'none'
@@ -293,6 +332,37 @@ const DetalleEmprendimiento = () => {
           </Col>
         </Row>
       </Card>
+
+      {/* Modal para reportar */}
+      <Modal show={showReportModal} onHide={() => setShowReportModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Reportar Emprendimiento</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group>
+            <Form.Label>Motivo del reporte</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              value={reporteMotivo}
+              onChange={(e) => setReporteMotivo(e.target.value)}
+              placeholder="Describe el problema que has encontrado..."
+            />
+            {reporteError && <Alert variant="danger" className="mt-2">{reporteError}</Alert>}
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowReportModal(false)}>
+            Cancelar
+          </Button>
+          <Button 
+            variant="danger"
+            onClick={handleReportar}
+          >
+            Enviar Reporte
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

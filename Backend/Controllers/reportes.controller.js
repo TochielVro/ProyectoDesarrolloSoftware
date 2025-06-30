@@ -3,10 +3,11 @@ const db = require('../Database/connection');
 
 const crearReporte = async (req, res) => {
   try {
-    const { id_emprendimiento, id_usuario_reportador, motivo } = req.body;
+    const { id_emprendimiento, motivo } = req.body;
+    const id_usuario_reportador = req.user.id; // Obtenemos el ID del usuario del token
 
     // Validaciones
-    if (!id_emprendimiento || !id_usuario_reportador || !motivo) {
+    if (!id_emprendimiento || !motivo) {
       return res.status(400).json({ error: "Todos los campos son obligatorios" });
     }
     if (motivo.length < 10) {
@@ -31,7 +32,8 @@ const crearReporte = async (req, res) => {
 
 const resolverReporte = async (req, res) => {
   try {
-    const { id_reporte, estado, id_admin_resolutor } = req.body;
+    const { id_reporte, estado } = req.body;
+    const id_admin_resolutor = req.user.id; // Obtenemos el ID del admin del token
 
     // Validar estado
     const estadosValidos = ["pendiente", "resuelto", "rechazado"];
