@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Container, Row, Col, Spinner, Button } from 'react-bootstrap';
-import { getEmprendimientos } from '../services/api';
-import { useNavigate } from 'react-router-dom'; // ✅ IMPORT NECESARIO
+import { getEmprendimientos } from '../Services/api';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [emprendimientos, setEmprendimientos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // ✅ NECESARIO PARA REDIRIGIR
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getEmprendimientos();
-        setEmprendimientos(response.data);
+
+        const destacados = response.data
+          .filter(e => e.promedio_puntuacion !== null) // solo con estrellas
+          .sort((a, b) => b.promedio_puntuacion - a.promedio_puntuacion) // orden por estrellas descendente
+          .slice(0, 6); // top 6 destacados del mes
+
+        setEmprendimientos(destacados);
       } catch (error) {
         console.error('Error fetching emprendimientos:', error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
   }, []);
 
@@ -32,25 +39,28 @@ const Home = () => {
 
   return (
     <Container className="my-4">
-      <h2 className="mb-4 text-center">Emprendimientos Destacados</h2>
+      <h2 className="mb-4 text-center">Emprendimientos Más Destacados del Mes ⭐</h2>
       <Row xs={1} md={2} lg={3} className="g-4">
         {emprendimientos.map((emprendimiento) => (
           <Col key={emprendimiento.id_emprendimiento}>
-            <Card className="card-custom">
-              <Card.Img
-                variant="top"
-                src={`http://localhost:3001${emprendimiento.imagen_url}`}
-                className="card-img-custom"
-              />
+            <Card className="card-custom h-100">
+              {emprendimiento.imagen_url && (
+                <Card.Img
+                  variant="top"
+                  src={`http://localhost:3001${emprendimiento.imagen_url}`}
+                  className="card-img-custom"
+                />
+              )}
               <Card.Body>
                 <Card.Title>{emprendimiento.nombre}</Card.Title>
                 <Card.Text>
-                  {emprendimiento.descripcion.substring(0, 100)}...
+                  {emprendimiento.descripcion?.substring(0, 100)}...
                 </Card.Text>
+                <p className="mb-2">⭐ {parseFloat(emprendimiento.promedio_puntuacion).toFixed(1)} / 5</p>
                 <Button
                   variant="outline-primary"
                   size="sm"
-                  onClick={() => navigate(`/emprendimiento/${emprendimiento.id_emprendimiento}`)} // ✅ NAVEGACIÓN
+                  onClick={() => navigate(`/emprendimiento/${emprendimiento.id_emprendimiento}`)}
                 >
                   Ver más
                 </Button>
@@ -64,3 +74,70 @@ const Home = () => {
 };
 
 export default Home;
+
+// import React, { useEffect, useState } from 'react';
+// import { Card, Container, Row, Col, Spinner, Button } from 'react-bootstrap';
+// import { getEmprendimientos } from '../services/api';
+// import { useNavigate } from 'react-router-dom'; // ✅ IMPORT NECESARIO
+
+// const Home = () => {
+//   const [emprendimientos, setEmprendimientos] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const navigate = useNavigate(); // ✅ NECESARIO PARA REDIRIGIR
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await getEmprendimientos();
+//         setEmprendimientos(response.data);
+//       } catch (error) {
+//         console.error('Error fetching emprendimientos:', error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   if (loading) {
+//     return (
+//       <Container className="text-center mt-5">
+//         <Spinner animation="border" variant="primary" />
+//       </Container>
+//     );
+//   }
+
+//   return (
+//     <Container className="my-4">
+//       <h2 className="mb-4 text-center">Emprendimientos Destacados</h2>
+//       <Row xs={1} md={2} lg={3} className="g-4">
+//         {emprendimientos.map((emprendimiento) => (
+//           <Col key={emprendimiento.id_emprendimiento}>
+//             <Card className="card-custom">
+//               <Card.Img
+//                 variant="top"
+//                 src={`http://localhost:3001${emprendimiento.imagen_url}`}
+//                 className="card-img-custom"
+//               />
+//               <Card.Body>
+//                 <Card.Title>{emprendimiento.nombre}</Card.Title>
+//                 <Card.Text>
+//                   {emprendimiento.descripcion.substring(0, 100)}...
+//                 </Card.Text>
+//                 <Button
+//                   variant="outline-primary"
+//                   size="sm"
+//                   onClick={() => navigate(`/emprendimiento/${emprendimiento.id_emprendimiento}`)} // ✅ NAVEGACIÓN
+//                 >
+//                   Ver más
+//                 </Button>
+//               </Card.Body>
+//             </Card>
+//           </Col>
+//         ))}
+//       </Row>
+//     </Container>
+//   );
+// };
+
+// export default Home;
