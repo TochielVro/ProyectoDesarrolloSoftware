@@ -88,5 +88,52 @@ class Emprendimiento {
         );
         return rows;
     }
+    // Método listar (para la ruta GET /emprendimientos)
+static async listar() {
+  const [rows] = await db.query(`
+    SELECT e.*, u.nombre as nombre_usuario, u.email as email_usuario
+    FROM emprendimientos e
+    JOIN usuarios u ON e.id_usuario = u.id_usuario
+    WHERE e.esta_activo = TRUE
+  `);
+  return rows;
+}
+
+// Método obtenerPorId (para la ruta GET /emprendimientos/:id)
+static async obtenerPorId(id) {
+  const [rows] = await db.query(`
+    SELECT e.*, u.nombre as nombre_usuario, u.email as email_usuario
+    FROM emprendimientos e
+    JOIN usuarios u ON e.id_usuario = u.id_usuario
+    WHERE e.id_emprendimiento = ?
+  `, [id]);
+  return rows[0];
+}
+
+// Método obtenerMasValorados
+static async obtenerMasValorados() {
+  const [rows] = await db.query(`
+    SELECT e.*, u.nombre as nombre_usuario, AVG(c.puntuacion) as promedio_puntuacion
+    FROM emprendimientos e
+    JOIN usuarios u ON e.id_usuario = u.id_usuario
+    LEFT JOIN comentarios c ON e.id_emprendimiento = c.id_emprendimiento
+    WHERE e.esta_activo = TRUE
+    GROUP BY e.id_emprendimiento
+    ORDER BY promedio_puntuacion DESC
+    LIMIT 3
+  `);
+  return rows;
+}
+
+// Método obtenerPorUsuario
+static async obtenerPorUsuario(id_usuario) {
+  const [rows] = await db.query(`
+    SELECT e.*, u.nombre as nombre_usuario
+    FROM emprendimientos e
+    JOIN usuarios u ON e.id_usuario = u.id_usuario
+    WHERE e.id_usuario = ? AND e.esta_activo = TRUE
+  `, [id_usuario]);
+  return rows;
+}
 }
 module.exports = Emprendimiento;
