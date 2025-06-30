@@ -220,9 +220,9 @@ body.light-theme .gap-area,
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* .main-content-area.sidebar-open {
-  Opcional: oscurecer el contenido cuando el sidebar está abierto
-} */
+.main-content-area.sidebar-open {
+  /* Opcional: oscurecer el contenido cuando el sidebar está abierto */
+}
 
 /* Estilos específicos en modo oscuro */
 body.dark-theme .card {
