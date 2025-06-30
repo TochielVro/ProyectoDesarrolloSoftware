@@ -11,6 +11,18 @@ import CrearEmprendimiento from '../Pages/CrearEmprendimiento';
 import EditarEmprendimiento from '../Pages/EditarEmprendimiento';
 import DetalleEmprendimiento from '../Pages/DetalleEmprendimiento'; // Importamos el componenete para ar calificacion a los emprendimiento
 
+import AcercaDe from '../Pages/AcercaDe';
+import Contacto from '../Pages/Contacto';
+
+import Recursos from '../Pages/Recursos';
+import Ayuda from '../Pages/Ayuda';
+
+import PreguntasFrecuentes from '../Pages/PreguntasFrecuentes';
+import TerminosUso from '../Pages/TerminosUso';
+
+import Privacidad from '../Pages/Privacidad';
+import ReportarProblema from '../Pages/ReportarProblema';
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -23,6 +35,14 @@ const AppRoutes = () => {
         <Route path="crear-emprendimiento" element={<CrearEmprendimiento />} />
         <Route path="editar-emprendimiento/:id" element={<EditarEmprendimiento />} />
         <Route path="emprendimiento/:id" element={<DetalleEmprendimiento />} />
+        <Route path="acerca-de" element={<AcercaDe />} />
+        <Route path="contacto" element={<Contacto />} />
+        <Route path="recursos" element={<Recursos />} />
+        <Route path="ayuda" element={<Ayuda />} />
+        <Route path="faq" element={<PreguntasFrecuentes />} />
+        <Route path="terminos-uso" element={<TerminosUso />} />
+        <Route path="privacidad" element={<Privacidad />} />
+        <Route path="reportar-problema" element={<ReportarProblema />} />
       </Route>
     </Routes>
   );

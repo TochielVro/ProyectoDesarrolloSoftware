@@ -52,7 +52,7 @@ const DetalleEmprendimiento = () => {
       id_emprendimiento: id,
       contenido,
       puntuacion,
-      id_usuario: 1,
+      // id_usuario: 1,
     });
 
     setMensaje('¡Comentario enviado!');
@@ -60,8 +60,8 @@ const DetalleEmprendimiento = () => {
     setPuntuacion(0);
     fetchComentarios();
   } catch (err) {
-    console.error('Error al enviar comentario', err);
-    setMensaje('Error al enviar comentario');
+    console.error('Error al enviar comentario', err.response?.data || err.message);
+    setMensaje(err.response?.data?.error || 'Error al enviar comentario');
   }
 };
 
