@@ -21,5 +21,12 @@ api.interceptors.request.use((config) => {
 export const registerUser = (userData) => api.post('/auth/register', userData);
 export const loginUser = (credentials) => api.post('/auth/login', credentials);
 export const getEmprendimientos = () => api.get('/emprendimientos');
+export const getUsuario = (id) => api.get(`/usuarios/${id}`);
+export const getEmprendimientosDestacados = () => api.get('/emprendimientos/mas-valorados');
+export const getTodosEmprendimientos = (page = 1) => 
+  api.get(`/emprendimientos?page=${page}`);
+
+export const buscarEmprendimientos = (termino) => 
+  api.get(`/emprendimientos/buscar?q=${termino}`);
 
 export default api;
