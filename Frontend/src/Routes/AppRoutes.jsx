@@ -4,28 +4,22 @@ import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import MainLayout from '../Layouts/MainLayout';
-
-
 import PerfilUsuario from '../Pages/PerfilUsuario';
 import MisEmprendimientos from '../Pages/MisEmprendimientos';
 import CrearEmprendimiento from '../Pages/CrearEmprendimiento';
 import EditarEmprendimiento from '../Pages/EditarEmprendimiento';
-import DetalleEmprendimiento from '../Pages/DetalleEmprendimiento'; // Importamos el componenete para ar calificacion a los emprendimiento
-
+import DetalleEmprendimiento from '../Pages/DetalleEmprendimiento';
 import AcercaDe from '../Pages/AcercaDe';
 import Contacto from '../Pages/Contacto';
-
 import Recursos from '../Pages/Recursos';
 import Ayuda from '../Pages/Ayuda';
-
 import PreguntasFrecuentes from '../Pages/PreguntasFrecuentes';
 import TerminosUso from '../Pages/TerminosUso';
-
 import Privacidad from '../Pages/Privacidad';
 import ReportarProblema from '../Pages/ReportarProblema';
-
-import TodosEmprendimientos from '../Pages/TodosEmprendimientos';
-
+import Emprendimientos from '../Pages/Emprendimientos';
+import EmprendimientosDestacados from '../Pages/Home';
+import BuscarEmprendimientos from '../Pages/BuscarEmprendimientos';
 
 const AppRoutes = () => {
   return (
@@ -39,6 +33,12 @@ const AppRoutes = () => {
         <Route path="crear-emprendimiento" element={<CrearEmprendimiento />} />
         <Route path="editar-emprendimiento/:id" element={<EditarEmprendimiento />} />
         <Route path="emprendimiento/:id" element={<DetalleEmprendimiento />} />
+        
+        {/* Nuevas rutas para emprendimientos */}
+        <Route path="emprendimientos" element={<Emprendimientos />} />
+        <Route path="emprendimientos-destacados" element={<EmprendimientosDestacados />} />
+        <Route path="buscar-emprendimientos" element={<BuscarEmprendimientos />} />
+        
         <Route path="acerca-de" element={<AcercaDe />} />
         <Route path="contacto" element={<Contacto />} />
         <Route path="recursos" element={<Recursos />} />
@@ -47,7 +47,6 @@ const AppRoutes = () => {
         <Route path="terminos-uso" element={<TerminosUso />} />
         <Route path="privacidad" element={<Privacidad />} />
         <Route path="reportar-problema" element={<ReportarProblema />} />
-        <Route path="emprendimientos" element={<TodosEmprendimientos />} />
       </Route>
     </Routes>
   );

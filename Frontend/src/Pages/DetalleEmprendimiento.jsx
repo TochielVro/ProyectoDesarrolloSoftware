@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, Card, Spinner, Form, Button, Alert } from 'react-bootstrap';
+import { useParams, useNavigate } from 'react-router-dom';
+import { 
+  Container, Card, Spinner, Form, Button, Alert, 
+  Row, Col, Badge, ListGroup
+} from 'react-bootstrap';
+import { 
+  FaStar, FaRegStar, FaPhone, FaFacebook, 
+  FaInstagram, FaLink, FaUser, FaArrowLeft 
+} from 'react-icons/fa';
 import api from '../services/api';
+import '../index.css';
 
 const DetalleEmprendimiento = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [emprendimiento, setEmprendimiento] = useState(null);
+  const [usuario, setUsuario] = useState(null);
   const [comentarios, setComentarios] = useState([]);
   const [puntuacion, setPuntuacion] = useState(0);
   const [contenido, setContenido] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [loading, setLoading] = useState(true);
 
+  // Función para cargar comentarios
   const fetchComentarios = async () => {
     try {
       const res = await api.get(`/comentarios/${id}`);
@@ -21,11 +32,18 @@ const DetalleEmprendimiento = () => {
     }
   };
 
+  // Función para cargar datos del emprendimiento y usuario
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get(`/emprendimientos/${id}`);
-        setEmprendimiento(res.data);
+        const resEmprendimiento = await api.get(`/emprendimientos/${id}`);
+        setEmprendimiento(resEmprendimiento.data);
+        
+        if (resEmprendimiento.data.id_usuario) {
+          const resUsuario = await api.get(`/usuarios/${resEmprendimiento.data.id_usuario}`);
+          setUsuario(resUsuario.data);
+        }
+        
         await fetchComentarios();
       } catch (err) {
         console.error(err);
@@ -36,81 +54,244 @@ const DetalleEmprendimiento = () => {
     fetchData();
   }, [id]);
 
+  // Función para manejar el envío de comentarios
   const handleEnviar = async () => {
-  if (puntuacion < 1 || puntuacion > 5) {
-    setMensaje('La puntuación debe estar entre 1 y 5');
-    return;
+    if (puntuacion < 1 || puntuacion > 5) {
+      setMensaje('Selecciona una puntuación entre 1 y 5 estrellas');
+      return;
+    }
+
+    if (contenido.trim().length < 5) {
+      setMensaje('El comentario debe tener al menos 5 caracteres');
+      return;
+    }
+
+    try {
+      await api.post('/comentarios', {
+        id_emprendimiento: id,
+        contenido,
+        puntuacion,
+      });
+
+      setMensaje('¡Comentario enviado con éxito!');
+      setContenido('');
+      setPuntuacion(0);
+      fetchComentarios();
+    } catch (err) {
+      setMensaje(err.response?.data?.error || 'Error al enviar comentario');
+    }
+  };
+
+  if (loading) {
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" variant="primary" />
+      </Container>
+    );
   }
-
-  if (contenido.trim().length < 5) {
-    setMensaje('El comentario debe tener al menos 5 caracteres');
-    return;
-  }
-
-  try {
-    await api.post('/comentarios', {
-      id_emprendimiento: id,
-      contenido,
-      puntuacion,
-      // id_usuario: 1,
-    });
-
-    setMensaje('¡Comentario enviado!');
-    setContenido('');
-    setPuntuacion(0);
-    fetchComentarios();
-  } catch (err) {
-    console.error('Error al enviar comentario', err.response?.data || err.message);
-    setMensaje(err.response?.data?.error || 'Error al enviar comentario');
-  }
-};
-
-if (loading) return <Spinner animation="border" />;
 
   return (
     <Container className="my-4">
-      <Card>
-        <Card.Img variant="top" src={`http://localhost:3001${emprendimiento.imagen_url}`} />
-        <Card.Body>
-          <Card.Title>{emprendimiento.nombre}</Card.Title>
-          <Card.Text>{emprendimiento.descripcion}</Card.Text>
+      <Button 
+        variant="outline-primary" 
+        onClick={() => navigate(-1)}
+        className="mb-3"
+      >
+        <FaArrowLeft /> Volver
+      </Button>
 
-          <hr />
-          <h5>Deja tu valoración</h5>
-          <Form.Group>
-            <Form.Label>Estrellas (1 a 5)</Form.Label>
-            <Form.Control
-              type="number"
-              min="1"
-              max="5"
-              value={puntuacion}
-              onChange={(e) => setPuntuacion(Number(e.target.value))}
+      <Card className="shadow-sm border-0">
+        <Row className="g-0">
+          {/* Columna de la imagen (controlada en tamaño) */}
+          <Col md={5}>
+            <Card.Img
+              src={`http://localhost:3001${emprendimiento.imagen_url}`}
+              className="img-fluid rounded-start"
+              style={{ 
+                maxHeight: '400px',
+                objectFit: 'cover',
+                width: '100%'
+              }}
             />
-          </Form.Group>
-          <Form.Group className="mt-2">
-            <Form.Label>Comentario</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              value={contenido}
-              onChange={(e) => setContenido(e.target.value)}
-            />
-          </Form.Group>
-          <Button className="mt-2" onClick={handleEnviar}>Enviar</Button>
-          {mensaje && <Alert className="mt-3" variant="info">{mensaje}</Alert>}
+          </Col>
 
-          <hr />
-          <h5>Comentarios</h5>
-          {comentarios.length === 0 ? (
-            <p className="text-muted">Aún no hay comentarios</p>
-          ) : (
-            comentarios.map((c, i) => (
-              <div key={i} className="mb-2">
-                <strong>⭐ {c.puntuacion}</strong> — {c.contenido}
+          {/* Columna de información */}
+          <Col md={7}>
+            <Card.Body>
+              {/* Header con nombre y usuario */}
+              <div className="d-flex justify-content-between align-items-start">
+                <div>
+                  <Card.Title as="h2" className="mb-1">
+                    {emprendimiento.nombre}
+                  </Card.Title>
+                  <Card.Subtitle className="text-muted mb-3">
+                    <FaUser className="me-1" />
+                    Publicado por: {emprendimiento.nombre_usuario || 'Anónimo'}
+                  </Card.Subtitle>
+                </div>
+                <Badge 
+                  bg="primary" 
+                  style={{ 
+                    background: 'linear-gradient(135deg, #6a5acd 0%, #87cefa 100%)',
+                    fontSize: '1rem'
+                  }}
+                >
+                  ⭐ {comentarios.reduce((acc, c) => acc + c.puntuacion, 0) / comentarios.length || 'Nuevo'}
+                </Badge>
               </div>
-            ))
-          )}
-        </Card.Body>
+
+              {/* Descripción */}
+              <Card.Text className="my-3">
+                {emprendimiento.descripcion}
+              </Card.Text>
+
+              {/* Contacto y redes sociales */}
+              <Card className="mb-4 border-0 shadow-sm">
+                <Card.Header 
+                  className="text-white"
+                  style={{
+                    background: 'linear-gradient(135deg, #6a5acd 0%, #87cefa 100%)'
+                  }}
+                >
+                  <h5 className="mb-0">Información de Contacto</h5>
+                </Card.Header>
+                <Card.Body>
+                  <ListGroup variant="flush">
+                    {emprendimiento.celular && (
+                      <ListGroup.Item>
+                        <FaPhone className="me-2" /> 
+                        <a href={`tel:${emprendimiento.celular}`}>
+                          {emprendimiento.celular}
+                        </a>
+                      </ListGroup.Item>
+                    )}
+                    {emprendimiento.facebook_url && (
+                      <ListGroup.Item>
+                        <FaFacebook className="me-2 text-primary" /> 
+                        <a 
+                          href={emprendimiento.facebook_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                        >
+                          Facebook
+                        </a>
+                      </ListGroup.Item>
+                    )}
+                    {emprendimiento.instagram_url && (
+                      <ListGroup.Item>
+                        <FaInstagram className="me-2 text-danger" /> 
+                        <a 
+                          href={emprendimiento.instagram_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                        >
+                          Instagram
+                        </a>
+                      </ListGroup.Item>
+                    )}
+                    {emprendimiento.otra_red_social && (
+                      <ListGroup.Item>
+                        <FaLink className="me-2 text-success" /> 
+                        <a 
+                          href={emprendimiento.otra_red_social} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                        >
+                          Sitio Web
+                        </a>
+                      </ListGroup.Item>
+                    )}
+                  </ListGroup>
+                </Card.Body>
+              </Card>
+
+              {/* Valoración con estrellas */}
+              <Card className="mb-4 border-0 shadow-sm">
+                <Card.Header 
+                  className="text-white"
+                  style={{
+                    background: 'linear-gradient(135deg, #6a5acd 0%, #87cefa 100%)'
+                  }}
+                >
+                  <h5 className="mb-0">Deja tu valoración</h5>
+                </Card.Header>
+                <Card.Body>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Puntuación</Form.Label>
+                    <div className="d-flex">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Button
+                          key={star}
+                          variant="link"
+                          onClick={() => setPuntuacion(star)}
+                          style={{ padding: '0 5px' }}
+                        >
+                          {star <= puntuacion ? (
+                            <FaStar className="text-warning" size={24} />
+                          ) : (
+                            <FaRegStar className="text-warning" size={24} />
+                          )}
+                        </Button>
+                      ))}
+                    </div>
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Comentario</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      value={contenido}
+                      onChange={(e) => setContenido(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Button 
+                    onClick={handleEnviar}
+                    style={{
+                      background: 'linear-gradient(135deg, #6a5acd 0%, #87cefa 100%)',
+                      border: 'none'
+                    }}
+                  >
+                    Enviar Valoración
+                  </Button>
+                  {mensaje && (
+                    <Alert variant={mensaje.includes('Error') ? 'danger' : 'success'} className="mt-3">
+                      {mensaje}
+                    </Alert>
+                  )}
+                </Card.Body>
+              </Card>
+
+              {/* Lista de comentarios */}
+              <h5 className="mb-3">
+                Comentarios ({comentarios.length})
+              </h5>
+              {comentarios.length === 0 ? (
+                <Alert variant="info">Aún no hay comentarios</Alert>
+              ) : (
+                <ListGroup>
+                  {comentarios.map((c, i) => (
+                    <ListGroup.Item key={i} className="mb-2 rounded shadow-sm">
+                      <div className="d-flex justify-content-between">
+                        <strong>{c.nombre_usuario || 'Anónimo'}</strong>
+                        <div>
+                          {[...Array(5)].map((_, starIdx) => (
+                            starIdx < c.puntuacion ? 
+                              <FaStar key={starIdx} className="text-warning" /> : 
+                              <FaRegStar key={starIdx} className="text-warning" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="mb-0 mt-1">{c.contenido}</p>
+                      <small className="text-muted">
+                        {new Date(c.fecha_creacion).toLocaleDateString()}
+                      </small>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
+            </Card.Body>
+          </Col>
+        </Row>
       </Card>
     </Container>
   );
