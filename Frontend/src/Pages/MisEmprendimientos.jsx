@@ -5,7 +5,7 @@ import { Card, Container, Row, Col, Button, Spinner, Alert, Modal } from 'react-
 // Importación de componentes de React Router para navegación y enlaces
 import { Link, useNavigate } from 'react-router-dom';
 // Cliente API personalizado para llamadas al backend
-import api from '../Services/api';
+import api from '../services/api';
 
 // Definición del componente principal
 const MisEmprendimientos = () => {
@@ -167,7 +167,7 @@ export default MisEmprendimientos;
 // import React, { useState, useEffect } from 'react';
 // import { Card, Container, Row, Col, Button, Spinner, Alert, Modal } from 'react-bootstrap';
 // import { Link, useNavigate } from 'react-router-dom';
-// import api from '../Services/api';
+// import api from '../services/api';
 
 // const MisEmprendimientos = () => {
 //   const [emprendimientos, setEmprendimientos] = useState([]);
@@ -291,7 +291,7 @@ export default MisEmprendimientos;
 // import React, { useState, useEffect } from 'react';
 // import { Card, Container, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
 // import { Link, useNavigate } from 'react-router-dom';
-// import api from '../Services/api';
+// import api from '../services/api';
 
 // const MisEmprendimientos = () => {
 //   const [emprendimientos, setEmprendimientos] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Card, Spinner, Form, Button, Alert } from 'react-bootstrap';
-import api from '../Services/api';
+import api from '../services/api';
 
 const DetalleEmprendimiento = () => {
   const { id } = useParams();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Alert, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import api from '../Services/api';
+import api from '../services/api';
 
 const CrearEmprendimiento = () => {
   const [nombre, setNombre] = useState('');
