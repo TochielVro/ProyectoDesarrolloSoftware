@@ -171,25 +171,6 @@ const Sidebar = ({ darkMode, closeSidebar, isMobile }) => {
         </Card.Body>
       </Card>
 
-      {/* Statistics Card - Solo para usuarios logueados */}
-      {isLoggedIn && (
-        <Card className="info-card">
-          <Card.Body>
-            <h6>📈 Tu Actividad</h6>
-            <div className="stats-grid">
-              <div className="stat-item">
-                <div className="stat-number">0</div>
-                <div className="stat-label">Emprendimientos</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">0</div>
-                <div className="stat-label">Visitas</div>
-              </div>
-            </div>
-          </Card.Body>
-        </Card>
-      )}
-
       {/* Tips Card */}
       <Card className="features-card">
         <Card.Body>
