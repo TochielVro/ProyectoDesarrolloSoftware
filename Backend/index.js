@@ -14,6 +14,8 @@ const authRoutes = require('./Routes/auth.routes');
 const emprendimientoRoutes = require('./Routes/emprendimientos.routes');
 const comentarioRoutes = require('./Routes/comentarios.routes');
 const reporteRoutes = require('./Routes/reportes.routes');
+const adminRoutes = require('./Routes/admin.routes');
+app.use('/api/admin', adminRoutes);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/emprendimientos', emprendimientoRoutes);

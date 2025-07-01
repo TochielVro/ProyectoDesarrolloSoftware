@@ -33,15 +33,20 @@ const crearReporte = async (req, res) => {
 const resolverReporte = async (req, res) => {
   try {
     const { id_reporte, estado } = req.body;
-    const id_admin_resolutor = req.user.id; // Obtenemos el ID del admin del token
+    const id_admin_resolutor = req.user.id;
 
     // Validar estado
     const estadosValidos = ["pendiente", "resuelto", "rechazado"];
     if (!estadosValidos.includes(estado)) {
-      return res.status(400).json({ error: "Estado no válido. Use: pendiente, resuelto o rechazado" });
+      return res.status(400).json({ error: "Estado no válido" });
     }
 
-    const reporteActualizado = await Reporte.actualizarEstado(id_reporte, estado, id_admin_resolutor);
+    const reporteActualizado = await Reporte.actualizarEstado(
+      id_reporte, 
+      estado, 
+      id_admin_resolutor
+    );
+    
     res.json(reporteActualizado);
   } catch (error) {
     res.status(500).json({ error: error.message });
