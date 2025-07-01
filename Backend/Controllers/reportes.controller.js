@@ -55,7 +55,21 @@ const resolverReporte = async (req, res) => {
 
 const listarReportesPendientes = async (req, res) => {
   try {
-    const reportes = await Reporte.listarPendientes();
+    const { estado } = req.query; // Obtener el parámetro de consulta "estado"
+    
+    // Validar que el estado sea uno de los permitidos
+    const estadosValidos = ['pendiente', 'resuelto', 'rechazado'];
+    const estadoFiltrado = estadosValidos.includes(estado) ? estado : 'pendiente';
+
+    const [reportes] = await db.query(
+      `SELECT r.*, e.nombre as nombre_emprendimiento, u.nombre as nombre_reportador
+      FROM reportes r
+      INNER JOIN emprendimientos e ON r.id_emprendimiento = e.id_emprendimiento
+      INNER JOIN usuarios u ON r.id_usuario_reportador = u.id_usuario
+      WHERE r.estado = ?`, 
+      [estadoFiltrado] // Filtrar por el estado recibido
+    );
+    
     res.json(reportes);
   } catch (error) {
     res.status(500).json({ error: error.message });
