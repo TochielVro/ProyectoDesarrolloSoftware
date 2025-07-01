@@ -26,6 +26,11 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
     return cleanName.charAt(0).toUpperCase();
   };
 
+  // Función para verificar si es admin de forma robusta
+  const esAdmin = () => {
+    return Boolean(user?.esAdmin === true || user?.esAdmin === 1 || user?.esAdmin === "1");
+  };
+
   return (
     <Navbar expand="lg" className={`modern-navbar shadow-sm ${darkMode ? 'dark' : 'light'}`}>
       <Container fluid>
@@ -74,20 +79,17 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
                       {getInitial()}
                     </div>
                     <span className="ms-2">{user?.nombre || 'Usuario'}</span>
-                    {user?.esAdmin && (
+                    {esAdmin() && (
                       <span className="admin-badge ms-2">Admin</span>
                     )}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className="modern-dropdown-menu">
-                    <Dropdown.Item as={Link} to="/perfil" className="modern-dropdown-item">
-                      <i className="bi bi-person me-2"></i> Mi Perfil
-                    </Dropdown.Item>
                     <Dropdown.Item as={Link} to="/crear-emprendimiento" className="modern-dropdown-item">
                       <i className="bi bi-plus-circle me-2"></i> Crear Emprendimiento
                     </Dropdown.Item>
 
-                    {user?.esAdmin && (
+                    {esAdmin() && (
                       <>
                         <Dropdown.Divider />
                         <Dropdown.Item 

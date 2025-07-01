@@ -65,11 +65,17 @@ const MisEmprendimientos = () => {
   const handleCloseModal = () => setEmprendimientoAEliminar(null);
 
   // Mostrar spinner si está cargando
-  if (loading) return <Spinner animation="border" />;
+  if (loading) {
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" variant="primary" />
+      </Container>
+    );
+  }
 
   // Render del componente
   return (
-    <Container className="py-4">
+    <Container className="my-4">
       {/* Título de la sección y botón para crear nuevo emprendimiento */}
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Mis Emprendimientos</h2>
@@ -83,33 +89,38 @@ const MisEmprendimientos = () => {
 
       {/* Si no hay emprendimientos registrados */}
       {emprendimientos.length === 0 ? (
-        <Card className="text-center p-4">
-          <p>Aún no tienes emprendimientos registrados</p>
-          <Button as={Link} to="/crear-emprendimiento" variant="primary">
-            Crear mi primer emprendimiento
-          </Button>
+        <Card className="card-custom text-center p-4">
+          <Card.Body>
+            <p>Aún no tienes emprendimientos registrados</p>
+            <Button as={Link} to="/crear-emprendimiento" variant="primary">
+              Crear mi primer emprendimiento
+            </Button>
+          </Card.Body>
         </Card>
       ) : (
         // Mostrar los emprendimientos en formato de grilla
         <Row xs={1} md={2} lg={3} className="g-4">
           {emprendimientos.map((emp) => (
             <Col key={emp.id_emprendimiento}>
-              <Card className="h-100">
+              <Card className="card-custom h-100">
                 {/* Mostrar imagen si existe */}
                 {emp.imagen_url && (
                   <Card.Img 
                     variant="top" 
                     src={`http://localhost:3001${emp.imagen_url}`} 
                     alt={emp.nombre}
+                    className="card-img-custom"
                   />
                 )}
                 {/* Cuerpo de la tarjeta con nombre y descripción */}
                 <Card.Body>
                   <Card.Title>{emp.nombre}</Card.Title>
-                  <Card.Text>{emp.descripcion.substring(0, 100)}...</Card.Text>
+                  <Card.Text>
+                    {emp.descripcion.substring(0, 100)}...
+                  </Card.Text>
                 </Card.Body>
                 {/* Pie con botones de acción: editar y eliminar */}
-                <Card.Footer className="bg-white">
+                <Card.Footer className="bg-transparent border-0">
                   <div className="d-flex justify-content-between">
                     {/* Botón para navegar a la pantalla de edición */}
                     <Button 
@@ -136,13 +147,17 @@ const MisEmprendimientos = () => {
       )}
 
       {/* Modal de confirmación de eliminación */}
-      <Modal show={!!emprendimientoAEliminar} onHide={handleCloseModal} centered>
+      <Modal 
+        show={!!emprendimientoAEliminar} 
+        onHide={handleCloseModal} 
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>Confirmar eliminación</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {/* Mensaje personalizado con nombre del emprendimiento */}
-          ¿Estás seguro de que deseas eliminar <strong>{emprendimientoAEliminar?.nombre}</strong>?
+          ¿Estás seguro de que deseas eliminar <strong style={{color: 'var(--primary-color)'}}>{emprendimientoAEliminar?.nombre}</strong>?
           Esta acción no se puede deshacer.
         </Modal.Body>
         <Modal.Footer>
@@ -162,5 +177,3 @@ const MisEmprendimientos = () => {
 
 // Exportar componente para su uso en otras partes de la app
 export default MisEmprendimientos;
-
-
