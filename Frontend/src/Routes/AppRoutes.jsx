@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
@@ -18,27 +18,35 @@ import TerminosUso from '../Pages/TerminosUso';
 import Privacidad from '../Pages/Privacidad';
 import ReportarProblema from '../Pages/ReportarProblema';
 import Emprendimientos from '../Pages/Emprendimientos';
-import EmprendimientosDestacados from '../Pages/Home';
 import BuscarEmprendimientos from '../Pages/BuscarEmprendimientos';
+import ReportesAdmin from '../Pages/Admin/ReportesAdmin'; // Nueva importación
+
+// Componente para rutas privadas
+const PrivateRoute = ({ children, adminOnly = false }) => {
+  const user = JSON.parse(localStorage.getItem('user')) || {};
+  
+  if (!localStorage.getItem('token')) {
+    return <Navigate to="/login" />;
+  }
+
+  if (adminOnly && !user.esAdmin) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
+};
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
+        {/* Rutas públicas */}
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="perfil" element={<PerfilUsuario />} />
-        <Route path="mis-emprendimientos" element={<MisEmprendimientos />} />
-        <Route path="crear-emprendimiento" element={<CrearEmprendimiento />} />
-        <Route path="editar-emprendimiento/:id" element={<EditarEmprendimiento />} />
-        <Route path="emprendimiento/:id" element={<DetalleEmprendimiento />} />
-        
-        {/* Nuevas rutas para emprendimientos */}
         <Route path="emprendimientos" element={<Emprendimientos />} />
-        <Route path="emprendimientos-destacados" element={<EmprendimientosDestacados />} />
+        <Route path="emprendimiento/:id" element={<DetalleEmprendimiento />} />
         <Route path="buscar-emprendimientos" element={<BuscarEmprendimientos />} />
-        
         <Route path="acerca-de" element={<AcercaDe />} />
         <Route path="contacto" element={<Contacto />} />
         <Route path="recursos" element={<Recursos />} />
@@ -47,6 +55,35 @@ const AppRoutes = () => {
         <Route path="terminos-uso" element={<TerminosUso />} />
         <Route path="privacidad" element={<Privacidad />} />
         <Route path="reportar-problema" element={<ReportarProblema />} />
+
+        {/* Rutas protegidas (requieren autenticación) */}
+        <Route path="perfil" element={
+          <PrivateRoute>
+            <PerfilUsuario />
+          </PrivateRoute>
+        } />
+        <Route path="mis-emprendimientos" element={
+          <PrivateRoute>
+            <MisEmprendimientos />
+          </PrivateRoute>
+        } />
+        <Route path="crear-emprendimiento" element={
+          <PrivateRoute>
+            <CrearEmprendimiento />
+          </PrivateRoute>
+        } />
+        <Route path="editar-emprendimiento/:id" element={
+          <PrivateRoute>
+            <EditarEmprendimiento />
+          </PrivateRoute>
+        } />
+
+        {/* Rutas exclusivas para administradores */}
+        <Route path="admin/reportes" element={
+          <PrivateRoute adminOnly>
+            <ReportesAdmin />
+          </PrivateRoute>
+        } />
       </Route>
     </Routes>
   );
