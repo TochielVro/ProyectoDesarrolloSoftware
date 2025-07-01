@@ -26,14 +26,38 @@ const crearEmprendimiento = async (req, res) => {
   }
 };
 
+// Listar emprendimiento para tambien obtener el promedio de calificaciones en base a las estrellas
 const listarEmprendimientos = async (req, res) => {
   try {
-    const emprendimientos = await Emprendimiento.listar();
+    const [emprendimientos] = await db.query(`
+      SELECT 
+        e.*, 
+        ROUND(AVG(c.puntuacion), 1) AS promedio_puntuacion
+      FROM 
+        emprendimientos e
+      LEFT JOIN 
+        comentarios c ON e.id_emprendimiento = c.id_emprendimiento
+      WHERE 
+        e.esta_activo = 1
+      GROUP BY 
+        e.id_emprendimiento
+    `);
+
     res.json(emprendimientos);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
+// const listarEmprendimientos = async (req, res) => {
+//   try {
+//     const emprendimientos = await Emprendimiento.listar();
+//     res.json(emprendimientos);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
 // Actualizar emprendimiento (nuevo)
 const actualizarEmprendimiento = async (req, res) => {
   try {

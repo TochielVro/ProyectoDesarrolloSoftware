@@ -19,21 +19,7 @@ const Footer = ({ darkMode }) => {
                 <p className="brand-description">
                   Conectando emprendimientos locales con su comunidad. 
                   Descubre, apoya y haz crecer los negocios de tu zona.
-                </p>
-                <div className="social-links">
-                  <a href="#" className="social-link" aria-label="Facebook">
-                    <i className="bi bi-facebook"></i>
-                  </a>
-                  <a href="#" className="social-link" aria-label="Instagram">
-                    <i className="bi bi-instagram"></i>
-                  </a>
-                  <a href="#" className="social-link" aria-label="Twitter">
-                    <i className="bi bi-twitter-x"></i>
-                  </a>
-                  <a href="#" className="social-link" aria-label="LinkedIn">
-                    <i className="bi bi-linkedin"></i>
-                  </a>
-                </div>
+                </p>                
               </div>
             </Col>
 
@@ -76,30 +62,7 @@ const Footer = ({ darkMode }) => {
                   <li><Link to="/reportar-problema">Reportar Problema</Link></li>
                 </ul>
               </div>
-            </Col>
-
-            {/* Newsletter */}
-            <Col lg={2} md={12}>
-              <div className="footer-section">
-                <h6 className="footer-title">Newsletter</h6>
-                <p className="newsletter-text">
-                  Mantente al día con las últimas novedades
-                </p>
-                <div className="newsletter-form">
-                  <div className="input-group">
-                    <input 
-                      type="email" 
-                      className="form-control newsletter-input" 
-                      placeholder="Tu email"
-                      aria-label="Email para newsletter"
-                    />
-                    <Button variant="primary" className="newsletter-btn">
-                      <i className="bi bi-arrow-right"></i>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Col>
+            </Col>          
           </Row>
         </Container>
       </div>
@@ -112,15 +75,6 @@ const Footer = ({ darkMode }) => {
               <p className="copyright-text">
                 © {currentYear} LocaLink. Todos los derechos reservados.
               </p>
-            </Col>
-            <Col md={6}>
-              <div className="footer-bottom-links">
-                <Link to="/terminos">Términos</Link>
-                <span className="separator">•</span>
-                <Link to="/privacidad">Privacidad</Link>
-                <span className="separator">•</span>
-                <Link to="/cookies">Cookies</Link>
-              </div>
             </Col>
           </Row>
         </Container>
