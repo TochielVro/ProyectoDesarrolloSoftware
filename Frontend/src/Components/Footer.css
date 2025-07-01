@@ -13,11 +13,13 @@
   --footer-input-text: #212529;
   --footer-input-placeholder: #9ca3af;
   --transition: all 0.3s ease;
+   --footer-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #667eea 100%);
   --shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 /* Variables CSS para tema oscuro */
 .modern-footer.dark {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
   --footer-bg: #1a1a1a ;
   --footer-bg-secondary: #2d333d;
   --footer-text: #a0aec0;

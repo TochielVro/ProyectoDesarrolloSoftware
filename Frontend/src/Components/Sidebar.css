@@ -12,8 +12,8 @@
   --sidebar-scrollbar-track: rgba(0, 0, 0, 0.1);
   --sidebar-scrollbar-thumb: rgba(0, 0, 0, 0.2);
   --sidebar-scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
-  --sidebar-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --sidebar-gradient-secondary: linear-gradient(45deg, #667eea, #764ba2);
+   --sidebar-gradient-primary: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #667eea 100%);
+  --sidebar-gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --sidebar-brand-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --sidebar-transition: all 0.3s ease;
   --sidebar-user-avatar-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -31,8 +31,8 @@
   --sidebar-scrollbar-track: rgba(255, 255, 255, 0.1);
   --sidebar-scrollbar-thumb: rgba(255, 255, 255, 0.2);
   --sidebar-scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
-  --sidebar-gradient-primary: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-  --sidebar-gradient-secondary: linear-gradient(45deg, #4299e1, #3182ce);
+  --sidebar-gradient-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --sidebar-gradient-secondary: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
   --sidebar-brand-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   --sidebar-user-avatar-bg: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
 }

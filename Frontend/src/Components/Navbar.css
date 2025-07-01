@@ -1,18 +1,24 @@
+:root {
+  --gradient-primary: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #667eea 100%);
+  --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+
 .modern-navbar {
-  backdrop-filter: blur(20px);
+  background: var(--gradient-primary) !important;
   position: relative !important;
   z-index: 1020;
   transition: all 0.3s ease;
 }
 
 .modern-navbar.light {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--gradient-primary) !important;
+  border-bottom: none !important;
 }
 
 .modern-navbar.dark {
-  background: rgba(30, 30, 30, 0.95) !important;
-  border-bottom: 1px solid #333;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+  border-bottom: none !important;
 }
 
 .modern-brand {
@@ -28,13 +34,14 @@
 }
 
 .navbar-logo {
-  height: 100px;
+  height: 200px !important; /* Tamaño fijo */
   width: auto;
-  transition: filter 0.3s ease;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 .modern-navbar.dark .navbar-logo {
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
 .modern-nav-link {
@@ -250,4 +257,11 @@
   border-radius: 10px;
   font-weight: bold;
   margin-left: 0.5rem;
+}
+
+.modern-nav-link svg,
+.modern-dropdown-item svg,
+.dark-mode-btn svg {
+  vertical-align: middle;
+  margin-bottom: 2px;
 }
