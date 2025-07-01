@@ -21,6 +21,8 @@ import Emprendimientos from '../Pages/Emprendimientos';
 import BuscarEmprendimientos from '../Pages/BuscarEmprendimientos';
 import ReportesAdmin from '../Pages/Admin/ReportesAdmin'; // Nueva importación
 
+import ConfiguracionUsuario from '../Pages/ConfiguracionUsuario';
+
 // Componente para rutas privadas
 const PrivateRoute = ({ children, adminOnly = false }) => {
   const user = JSON.parse(localStorage.getItem('user')) || {};
@@ -55,6 +57,7 @@ const AppRoutes = () => {
         <Route path="terminos-uso" element={<TerminosUso />} />
         <Route path="privacidad" element={<Privacidad />} />
         <Route path="reportar-problema" element={<ReportarProblema />} />
+        <Route path="configuracion" element={<ConfiguracionUsuario />} />
 
         {/* Rutas protegidas (requieren autenticación) */}
         <Route path="perfil" element={
