@@ -7,7 +7,7 @@
   --border-sidebar: #dee2e6;
   --bg-content: #f8f9fa;
   --sidebar-width: 500px; /* Variable para el ancho del sidebar */
-  --gap-width: 80px; /* Ancho de la columna separadora */
+  --gap-width: 0px; /* Ancho de la columna separadora */
   --gap-color: #f8f9fa; /* Color de la columna separadora (tema claro) */
 }
 
