@@ -217,3 +217,37 @@
 .dark-mode-icon {
   font-size: 16px;
 }
+
+.admin-badge {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase; /* Asegura mayúsculas */
+}
+
+.admin-badge {
+  background: #ff6b6b;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
