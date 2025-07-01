@@ -15,6 +15,17 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
     navigate('/login');
   };
 
+  // Función mejorada para obtener la inicial del nombre
+  const getInitial = () => {
+    if (!user?.nombre) return 'U'; // 'U' de Usuario por defecto
+    
+    // Limpiar espacios y obtener primera letra
+    const cleanName = user.nombre.trim();
+    if (cleanName.length === 0) return 'U';
+    
+    return cleanName.charAt(0).toUpperCase();
+  };
+
   return (
     <Navbar expand="lg" className={`modern-navbar shadow-sm ${darkMode ? 'dark' : 'light'}`}>
       <Container fluid>
@@ -60,9 +71,12 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
                 <Dropdown as={Nav.Item} align="end">
                   <Dropdown.Toggle as="a" className="modern-dropdown-toggle">
                     <div className="user-avatar">
-                      {user?.nombre?.charAt(0) || 'U'}
+                      {getInitial()}
                     </div>
                     <span className="ms-2">{user?.nombre || 'Usuario'}</span>
+                    {user?.esAdmin && (
+                      <span className="admin-badge ms-2">Admin</span>
+                    )}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className="modern-dropdown-menu">
@@ -72,6 +86,20 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
                     <Dropdown.Item as={Link} to="/crear-emprendimiento" className="modern-dropdown-item">
                       <i className="bi bi-plus-circle me-2"></i> Crear Emprendimiento
                     </Dropdown.Item>
+
+                    {user?.esAdmin && (
+                      <>
+                        <Dropdown.Divider />
+                        <Dropdown.Item 
+                          as={Link} 
+                          to="/admin/reportes" 
+                          className="modern-dropdown-item"
+                        >
+                          <i className="bi bi-shield-lock me-2"></i> Panel de Admin
+                        </Dropdown.Item>
+                      </>
+                    )}
+
                     <Dropdown.Item as={Link} to="/configuracion" className="modern-dropdown-item">
                       <i className="bi bi-gear me-2"></i> Configuración
                     </Dropdown.Item>
