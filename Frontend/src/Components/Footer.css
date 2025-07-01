@@ -382,3 +382,78 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4),
               0 0 15px rgba(102, 126, 234, 0.2);
 }
+
+/* --- Logo del Footer --- */
+.footer-logo {
+  height: 200px; /* Ajusta según necesidad */
+  width: auto;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  transition: var(--transition);
+}
+
+.modern-footer.dark .footer-logo {
+  filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* --- Iconos --- */
+.footer-icon {
+  margin-right: 8px;
+  vertical-align: middle;
+  color: var(--footer-accent);
+}
+
+.link-icon {
+  margin-right: 6px;
+  vertical-align: middle;
+  font-size: 0.9em;
+  color: var(--footer-text);
+}
+
+.footer-links a:hover .link-icon {
+  color: var(--footer-accent);
+}
+
+/* --- Social Links (Mejorados) --- */
+.social-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50% !important; /* Circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--footer-bg-secondary);
+  color: var(--footer-text);
+  transition: var(--transition);
+}
+
+.social-link:hover {
+  transform: translateY(-3px) scale(1.1);
+  background: var(--footer-accent);
+  color: white !important;
+}
+
+/* --- Footer Bottom (Mejorado) --- */
+.footer-bottom {
+  padding: 1.5rem 0 !important;
+}
+
+.copyright-text strong {
+  color: var(--footer-accent);
+  font-weight: 600;
+}
+
+/* --- Efectos --- */
+.footer-links li {
+  transition: transform 0.3s ease;
+}
+
+.footer-links li:hover {
+  transform: translateX(5px);
+}

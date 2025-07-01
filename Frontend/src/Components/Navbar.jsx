@@ -33,7 +33,13 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
     <Navbar expand="lg" className={`modern-navbar ${darkMode ? 'dark' : 'light'}`}>
       <Container fluid>
         <Navbar.Brand as={Link} to="/" className="modern-brand">
-          <img src={logo} alt="LocaLink" className="navbar-logo" />
+          <div className="logo-container"> {/* Contenedor adicional para mejor control */}
+            <img 
+              src={logo} 
+              alt="LocaLink" 
+              className="navbar-logo"
+            />
+          </div>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbar-nav" className="modern-toggler">

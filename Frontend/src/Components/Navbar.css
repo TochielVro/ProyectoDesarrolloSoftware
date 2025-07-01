@@ -1,6 +1,6 @@
 :root {
-  --gradient-primary: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #667eea 100%);
-  --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-primary: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #5c74df 100%);
+  --gradient-secondary: linear-gradient(135deg, #667eea 0%, #bc91e7 100%);
 }
 
 
@@ -9,6 +9,8 @@
   position: relative !important;
   z-index: 1020;
   transition: all 0.3s ease;
+  min-height: 100px !important;
+  padding: 0.5rem 0;
 }
 
 .modern-navbar.light {
@@ -27,6 +29,9 @@
   color: #2c3e50 !important;
   text-decoration: none;
   transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .modern-navbar.dark .modern-brand {
@@ -34,10 +39,11 @@
 }
 
 .navbar-logo {
-  height: 200px !important; /* Tamaño fijo */
+  height: 175px !important; /* Tamaño fijo */
   width: auto;
   transition: all 0.3s ease;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    object-fit: contain; /* Mantiene la proporción */
 }
 
 .modern-navbar.dark .navbar-logo {
