@@ -11,7 +11,7 @@ app.use(cors({
     'http://localhost:3001', 
     'http://localhost:27373',  // Vite dev
     'http://localhost:4173',  // Preview de Vite
-    'proyectodesarrollosoftware-production.up.railway.app' 
+    'https://proyectodesarrollosoftware-production.up.railway.app' 
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
