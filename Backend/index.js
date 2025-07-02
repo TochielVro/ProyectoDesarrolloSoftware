@@ -4,20 +4,8 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
-// Middlewares - CORS actualizado
-app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:3001', 
-    'http://localhost:27373',  // Vite dev
-    'http://localhost:8080',  // Preview de Viste
-    'https://proyectodesarrollosoftware-production.up.railway.app' 
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
+// Middlewares
+app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'Public', 'uploads')));
 
@@ -26,6 +14,8 @@ const authRoutes = require('./Routes/auth.routes');
 const emprendimientoRoutes = require('./Routes/emprendimientos.routes');
 const comentarioRoutes = require('./Routes/comentarios.routes');
 const reporteRoutes = require('./Routes/reportes.routes');
+const adminRoutes = require('./Routes/admin.routes');
+app.use('/api/admin', adminRoutes);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/emprendimientos', emprendimientoRoutes);
