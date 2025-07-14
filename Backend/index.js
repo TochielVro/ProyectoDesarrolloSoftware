@@ -10,7 +10,7 @@ app.use(cors({
     'http://localhost:3000',
     'http://localhost:3001',
     'http://localhost:5173',
-    'https://localink-production.up.railway.app',
+    'https://proyectodesarrollosoftware-production-f819.up.railway.app',
     'https://res.cloudinary.com' // Agregar dominio de Cloudinary
   ],
   credentials: true,
