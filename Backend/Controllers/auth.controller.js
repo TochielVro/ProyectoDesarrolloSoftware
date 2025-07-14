@@ -110,6 +110,4 @@ const actualizarConfiguracion = async (req, res) => {
 };
 
 
-module.exports = { register, login, actualizarNombre, eliminarCuenta };
-
 module.exports = { register, login, actualizarNombre, eliminarCuenta, actualizarConfiguracion };
