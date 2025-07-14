@@ -73,8 +73,7 @@ const DetalleEmprendimiento = () => {
       const res = await api.get(`/comentarios/${id}`);
       setComentarios(res.data);
     } catch (err) {
-      // setMensaje(err.response?.data?.error || 'Error al enviar comentario');
-      if (err.response?.data?.error === 'Token no proporcionado') {
+       if (err.response?.data?.error === 'Token no proporcionado') {
       setMensaje('Inicia sesión para enviar comentario/valoración');
       } else {
         setMensaje(err.response?.data?.error || 'Error al enviar comentario');
@@ -149,12 +148,16 @@ const handleReportar = async () => {
           {/* Columna de la imagen */}
           <Col md={5}>
             <Card.Img
-              src={`http://localhost:3001${emprendimiento.imagen_url}`}
+              src={emprendimiento.imagen_url}
               className="img-fluid rounded-start"
               style={{ 
                 maxHeight: '400px',
                 objectFit: 'cover',
                 width: '100%'
+              }}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://via.placeholder.com/400x300?text=Imagen+no+disponible';
               }}
             />
           </Col>
