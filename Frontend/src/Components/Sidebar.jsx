@@ -73,12 +73,7 @@ const Sidebar = ({ darkMode, closeSidebar, isMobile }) => {
   }
 
   return (
-    <div className={`sidebar ${darkMode ? 'dark' : ''}`}>
-      {/* Brand section */}
-      <div className="sidebar-brand">
-        <h3>LocaLink</h3>
-        <small>Conectando comunidades</small>
-      </div>
+    <div className={`sidebar ${darkMode ? 'dark' : ''} ultra-compact`}>    
 
       {/* Welcome/Auth Card */}
       {isLoggedIn ? (
@@ -174,19 +169,6 @@ const Sidebar = ({ darkMode, closeSidebar, isMobile }) => {
             <div className="feature-icon"></div>
             <span className="feature-text">Eventos y promociones</span>
           </div>
-        </Card.Body>
-      </Card>
-
-      {/* Tips Card */}
-      <Card className="features-card">
-        <Card.Body>
-          <h6 className="features-title">💭 Consejos</h6>
-          <p className="small">
-            {isLoggedIn 
-              ? "Completa tu perfil y añade fotos de calidad para atraer más clientes."
-              : "Regístrate gratis y comienza a promocionar tu emprendimiento hoy mismo."
-            }
-          </p>
         </Card.Body>
       </Card>
 
