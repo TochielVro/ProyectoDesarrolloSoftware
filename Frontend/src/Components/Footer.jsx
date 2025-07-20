@@ -98,12 +98,7 @@ const Footer = ({ darkMode }) => {
               </p>
             </Col>
             <Col md={6} className="text-center text-md-end">
-              <div className="footer-bottom-links">
-                <Link to="/politica">Política</Link>
-                <span className="separator">|</span>
-                <Link to="/terminos">Términos</Link>
-                <span className="separator">|</span>
-                <Link to="/soporte">Soporte</Link>
+              <div className="footer-bottom-links">                
               </div>
             </Col>
           </Row>
