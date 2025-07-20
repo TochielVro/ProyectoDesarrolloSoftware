@@ -1,273 +1,229 @@
 :root {
-  --gradient-primary: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #5c74df 100%);
-  --gradient-secondary: linear-gradient(135deg, #667eea 0%, #bc91e7 100%);
+  --color-primary: #2ED8FF;
+  --color-secondary: #A259FF;
+  --color-bg-light: #F8F9FB;
+  --color-bg-dark: #181A20;
+  --color-text-light: #F8F9FB;
+  --color-text-dark: #181A20;
+  --color-accent: #A259FF;
+  --color-border: #e0e0e0;
+  --navbar-height: 64px;
 }
-
 
 .modern-navbar {
-  background: var(--gradient-primary) !important;
-  position: relative !important;
-  z-index: 1020;
-  transition: all 0.3s ease;
-  min-height: 100px !important;
-  padding: 0.5rem 0;
-}
-
-.modern-navbar.light {
-  background: var(--gradient-primary) !important;
-  border-bottom: none !important;
+  background: var(--color-bg-light);
+  min-height: var(--navbar-height);
+  box-shadow: 0 2px 12px 0 rgba(42, 44, 48, 0.06);
+  transition: background 0.3s, box-shadow 0.3s;
+  z-index: 100;
 }
 
 .modern-navbar.dark {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
-  border-bottom: none !important;
+  background: var(--color-bg-dark);
+  box-shadow: 0 2px 12px 0 rgba(30, 32, 36, 0.18);
 }
 
-.modern-brand {
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: #2c3e50 !important;
-  text-decoration: none;
-  transition: color 0.3s ease;
+.modern-brand .logo-container {
   display: flex;
   align-items: center;
-  height: 100%;
-}
-
-.modern-navbar.dark .modern-brand {
-  color: #ffffff !important;
+  height: var(--navbar-height);
 }
 
 .navbar-logo {
-  height: 175px !important; /* Tamaño fijo */
+  height: 150px;
   width: auto;
-  transition: all 0.3s ease;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    object-fit: contain; /* Mantiene la proporción */
+  filter: drop-shadow(0 2px 8px rgba(42, 44, 48, 0.10));
+  transition: filter 0.3s;
 }
 
 .modern-navbar.dark .navbar-logo {
-  filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 2px 8px rgba(162, 89, 255, 0.15));
 }
 
 .modern-nav-link {
-  color: #495057 !important;
-  font-weight: 300;
-  padding: 0.5rem 1rem !important;
-  transition: all 0.3s ease;
-  border-radius: 8px;
-  margin: 0 0.2rem;
+  color: var(--color-text-dark);
+  font-weight: 500;
+  margin-right: 8px;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 8px 14px;
+  position: relative;
 }
 
 .modern-navbar.dark .modern-nav-link {
-  color: #e9ecef !important;
+  color: var(--color-text-light);
 }
 
-.modern-nav-link:hover {
-  color: #007bff !important;
-  background: rgba(0, 123, 255, 0.1);
+.modern-nav-link:hover, .modern-nav-link.active {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: #fff !important;
+  box-shadow: 0 2px 8px 0 rgba(46, 216, 255, 0.10);
 }
 
-.modern-toggler {
-  border: none !important;
-  padding: 0.25rem 0.5rem;
+.dark-mode-btn {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.modern-toggler span {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background: #495057;
-  margin: 5px 0;
-  transition: 0.3s;
-  border-radius: 2px;
-}
-
-.modern-navbar.dark .modern-toggler span {
-  background: #e9ecef;
+.dark-mode-btn:hover {
+  filter: brightness(1.1);
 }
 
 .user-avatar {
-  width: 32px;
-  height: 32px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: #fff;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px 0 rgba(162, 89, 255, 0.10);
+  margin-right: 2px;
+  transition: box-shadow 0.2s;
+}
+
+.admin-badge {
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 14px;
+  margin-left: 4px;
+  letter-spacing: 0.5px;
 }
 
 .modern-dropdown-toggle {
   display: flex !important;
   align-items: center;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background: none !important;
+  border: none !important;
+  color: inherit !important;
+  font-weight: 500;
+  padding: 0 10px;
   border-radius: 8px;
-  transition: all 0.3s ease;
-  color: #495057 !important;
-}
-
-.modern-navbar.dark .modern-dropdown-toggle {
-  color: #e9ecef !important;
+  transition: background 0.2s;
 }
 
 .modern-dropdown-toggle:hover {
-  background: rgba(0, 123, 255, 0.1);
-  color: #007bff !important;
+  background: rgba(162, 89, 255, 0.08) !important;
 }
 
 .modern-dropdown-menu {
-  border: none !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
-  border-radius: 12px !important;
-  padding: 0.5rem 0;
-  margin-top: 0.5rem;
-  background-color: #ffffff !important;
+  background: var(--color-bg-light);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px 0 rgba(42, 44, 48, 0.10);
+  border: none;
+  min-width: 220px;
+  padding: 8px 0;
+  margin-top: 8px;
+  transition: background 0.2s;
 }
 
 .modern-navbar.dark .modern-dropdown-menu {
-  background-color: #2d2d2d !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  background: var(--color-bg-dark);
+  box-shadow: 0 4px 24px 0 rgba(162, 89, 255, 0.10);
 }
 
 .modern-dropdown-item {
-  padding: 0.7rem 1.5rem !important;
-  color: #495057 !important;
-  transition: all 0.3s ease;
+  color: var(--color-text-dark);
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, color 0.2s;
 }
 
 .modern-navbar.dark .modern-dropdown-item {
-  color: #e9ecef !important;
+  color: var(--color-text-light);
 }
 
-.modern-dropdown-item:hover {
-  background: rgba(0, 123, 255, 0.1) !important;
-  color: #007bff !important;
+.modern-dropdown-item:hover, .modern-dropdown-item:focus {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: #fff !important;
 }
 
-.modern-dropdown-item.text-danger {
-  color: #dc3545 !important;
-}
-
-.modern-dropdown-item.text-danger:hover {
-  background: rgba(220, 53, 69, 0.1) !important;
-  color: #dc3545 !important;
-}
-
-.auth-buttons {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.modern-btn-outline {
-  border: 2px solid #007bff !important;
-  color: #007bff !important;
-  background: transparent !important;
-  border-radius: 25px !important;
-  padding: 0.5rem 1.5rem !important;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.modern-btn-outline:hover {
-  background: #007bff !important;
-  color: white !important;
-  transform: translateY(-2px);
-}
-
-.modern-btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  border: none !important;
-  border-radius: 25px !important;
-  padding: 0.5rem 1.5rem !important;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.modern-btn-primary:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-}
-
-.dark-mode-btn {
-  border-radius: 25px !important;
-  padding: 0.4rem 1rem !important;
-  font-size: 0.9rem;
+.auth-buttons .modern-btn-outline {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  background: transparent;
+  border-radius: 20px;
   font-weight: 500;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 1px solid #dee2e6 !important;
-  background: #f8f9fa !important;
-  color: #495057 !important;
+  transition: background 0.2s, color 0.2s, border 0.2s;
 }
 
-.modern-navbar.dark .dark-mode-btn {
-  background: #333 !important;
-  border: 1px solid #555 !important;
-  color: #ffffff !important;
+.auth-buttons .modern-btn-outline:hover {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: #fff;
+  border: 2px solid var(--color-secondary);
 }
 
-.dark-mode-btn:hover {
-  background: #e9ecef !important;
-  border-color: #adb5bd !important;
-  color: #495057 !important;
-  transform: translateY(-1px);
+.auth-buttons .modern-btn-primary {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
 }
 
-.modern-navbar.dark .dark-mode-btn:hover {
-  background: #444 !important;
-  border-color: #666 !important;
-  color: #ffffff !important;
+.auth-buttons .modern-btn-primary:hover {
+  filter: brightness(1.1);
 }
 
-.dark-mode-icon {
-  font-size: 16px;
+@media (max-width: 991px) {
+  .modern-navbar {
+    min-height: 56px;
+  }
+  .modern-brand .logo-container {
+    height: 56px;
+  }
+  .navbar-logo {
+    height: 32px;
+  }
+  .modern-nav-link {
+    padding: 8px 10px;
+    font-size: 1rem;
+  }
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
 }
 
-.admin-badge {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
-  color: white;
-  font-size: 0.7rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 10px;
-  margin-left: 0.5rem;
-  font-weight: bold;
-}
-
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 600;
-  font-size: 14px;
-  text-transform: uppercase; /* Asegura mayúsculas */
-}
-
-.admin-badge {
-  background: #ff6b6b;
-  color: white;
-  font-size: 0.7rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 10px;
-  font-weight: bold;
-  margin-left: 0.5rem;
-}
-
-.modern-nav-link svg,
-.modern-dropdown-item svg,
-.dark-mode-btn svg {
-  vertical-align: middle;
-  margin-bottom: 2px;
+@media (max-width: 600px) {
+  .modern-navbar {
+    padding: 0 8px;
+  }
+  .modern-brand .logo-container {
+    height: 48px;
+  }
+  .navbar-logo {
+    height: 28px;
+  }
+  .modern-nav-link {
+    padding: 8px 6px;
+    font-size: 0.98rem;
+  }
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.95rem;
+  }
 }

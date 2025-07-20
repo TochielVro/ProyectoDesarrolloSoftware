@@ -1,487 +1,448 @@
-/* Sidebar.css - Con soporte completo para modo oscuro corregido */
-
-/* Variables CSS globales para tema claro */
 :root {
-  --sidebar-bg: #f8f9fa;
-  --sidebar-text: #333333;
-  --sidebar-text-secondary: #6c757d;
-  --sidebar-border: #dee2e6;
-  --sidebar-card-bg: #ffffff;
-  --sidebar-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  --sidebar-card-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
-  --sidebar-scrollbar-track: rgba(0, 0, 0, 0.1);
-  --sidebar-scrollbar-thumb: rgba(0, 0, 0, 0.2);
-  --sidebar-scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
-   --sidebar-gradient-primary: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #667eea 100%);
-  --sidebar-gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --sidebar-brand-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --sidebar-transition: all 0.3s ease;
-  --sidebar-user-avatar-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --color-primary: #2ED8FF;
+  --color-secondary: #A259FF;
+  --color-bg-light: #F8F9FB;
+  --color-bg-secondary: #f8f9fb;
+  --color-bg-card: #ffffff;
+  --color-bg-dark: #181A20;
+  --color-text-light: #F8F9FB;
+  --color-text-dark: #222831;
+  --color-text-secondary: #64748B;
+  --color-accent: #A259FF;
+  --color-border: #e0e0e0;
+  --color-border-light: #F1F5F9;
+  --gradient-primary: linear-gradient(135deg, #2ED8FF 0%, #A259FF 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(46, 216, 255, 0.05) 0%, rgba(162, 89, 255, 0.05) 100%);
+  --gradient-card: linear-gradient(135deg, rgba(46, 216, 255, 0.02) 0%, rgba(162, 89, 255, 0.02) 100%);
+  --shadow-soft: 0 4px 20px rgba(46, 216, 255, 0.08);
+  --shadow-hover: 0 8px 32px rgba(162, 89, 255, 0.15);
+  --shadow-card: 0 6px 25px rgba(46, 216, 255, 0.10);
 }
 
-/* Variables específicas para modo oscuro usando la clase .dark */
-.sidebar.dark {
-  --sidebar-bg: #1a1a1a;
-  --sidebar-text: #ffffff;
-  --sidebar-text-secondary: #b0b0b0;
-  --sidebar-border: #333333;
-  --sidebar-card-bg: #2d2d2d;
-  --sidebar-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  --sidebar-card-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.5);
-  --sidebar-scrollbar-track: rgba(255, 255, 255, 0.1);
-  --sidebar-scrollbar-thumb: rgba(255, 255, 255, 0.2);
-  --sidebar-scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
-  --sidebar-gradient-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  --sidebar-gradient-secondary: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-  --sidebar-brand-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  --sidebar-user-avatar-bg: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-}
-
-/* Sidebar principal */
 .sidebar {
-  padding: 2rem 1.5rem;
-  height: 100vh;
+  width: 500px;
+  min-height: 100vh;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-dark);
+  padding: 24px 16px;
+  box-shadow: 4px 0 25px rgba(46, 216, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+  z-index: 200;
+  border-right: 1px solid var(--color-border-light);
+  position: relative;
   overflow-y: auto;
-  background: var(--sidebar-bg) !important;
-  transition: var(--sidebar-transition);
-  border-right: 1px solid var(--sidebar-border);
 }
 
-/* Scrollbar styling */
-.sidebar::-webkit-scrollbar {
-  width: 6px;
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-card);
+  z-index: -1;
 }
 
-.sidebar::-webkit-scrollbar-track {
-  background: var(--sidebar-scrollbar-track);
-  border-radius: 3px;
+.sidebar.dark {
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  box-shadow: 4px 0 25px rgba(162, 89, 255, 0.15);
+  border-right: 1px solid #2A2D35;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
-  background: var(--sidebar-scrollbar-thumb);
-  border-radius: 3px;
-  transition: var(--sidebar-transition);
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: var(--sidebar-scrollbar-thumb-hover);
-}
-
-/* Brand section */
 .sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 2px solid var(--sidebar-border);
-  transition: var(--sidebar-transition);
+  margin-bottom: 20px;
+  padding: 20px 16px;
+  background: var(--color-bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-border-light);
+}
+
+.sidebar.dark .sidebar-brand {
+  background: #23242b;
+  border: 1px solid #2A2D35;
+  box-shadow: 0 4px 20px rgba(162, 89, 255, 0.10);
 }
 
 .sidebar-brand h3 {
-  color: var(--sidebar-text) !important;
   font-weight: 700;
-  font-size: 1.8rem;
-  margin: 0;
-  text-shadow: var(--sidebar-brand-shadow);
-  transition: var(--sidebar-transition);
+  font-size: 1.6rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
 }
 
 .sidebar-brand small {
-  color: var(--sidebar-text-secondary) !important;
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
+  margin-bottom: 0;
   font-weight: 500;
-  transition: var(--sidebar-transition);
 }
 
-/* Cards base - IMPORTANTE: Forzar estilos con !important para sobrescribir Bootstrap */
-.sidebar .welcome-card,
-.sidebar .login-card,
-.sidebar .info-card,
-.sidebar .features-card {
-  border: none !important;
-  border-radius: 20px !important;
-  box-shadow: var(--sidebar-card-shadow) !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
-  margin-bottom: 1.5rem !important;
-  overflow: hidden !important;
-  background: var(--sidebar-card-bg) !important;
+.sidebar.dark .sidebar-brand small {
+  color: #bbb;
 }
 
-.sidebar .welcome-card:hover,
-.sidebar .login-card:hover,
-.sidebar .info-card:hover,
-.sidebar .features-card:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: var(--sidebar-card-shadow-hover) !important;
+.welcome-card, .login-card, .info-card, .features-card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 16px;
+  background: var(--color-bg-card);
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-border-light);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Welcome card - con gradiente especial */
-.sidebar .welcome-card {
-  background: var(--sidebar-gradient-primary) !important;
-  color: white !important;
-  border: none !important;
+.welcome-card::before, .login-card::before, .info-card::before, .features-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  opacity: 0.8;
 }
 
-.sidebar .welcome-card .card-body {
-  padding: 2.5rem 2rem !important;
-  text-align: center !important;
+.welcome-card:hover, .login-card:hover, .info-card:hover, .features-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
-.sidebar .welcome-card h5 {
-  font-weight: 700 !important;
-  font-size: 1.5rem !important;
-  margin-bottom: 1rem !important;
-  color: white !important;
+.sidebar.dark .welcome-card,
+.sidebar.dark .login-card,
+.sidebar.dark .info-card,
+.sidebar.dark .features-card {
+  background: #23242b;
+  box-shadow: 0 6px 25px rgba(162, 89, 255, 0.15);
+  border: 1px solid #2A2D35;
 }
 
-.sidebar .welcome-card p {
-  font-size: 1.1rem !important;
-  margin-bottom: 2rem !important;
-  line-height: 1.6 !important;
-  color: rgba(255, 255, 255, 0.9) !important;
+/* Mejorar el centrado de las tarjetas */
+.welcome-card .card-body,
+.login-card .card-body {
+  padding: 24px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Avatar de usuario grande */
-.sidebar .user-avatar-large {
-  width: 60px !important;
-  height: 60px !important;
-  border-radius: 50% !important;
-  background: var(--sidebar-user-avatar-bg) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  color: white !important;
-  font-weight: 700 !important;
-  font-size: 1.5rem !important;
-  margin: 0 auto !important;
-  border: 3px solid rgba(255, 255, 255, 0.3) !important;
-  transition: var(--sidebar-transition) !important;
+.welcome-card h5,
+.login-card h5 {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--color-text-dark);
 }
 
-.sidebar .user-info {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
+.sidebar.dark .welcome-card h5,
+.sidebar.dark .login-card h5 {
+  color: var(--color-text-light);
 }
 
-/* Login card - adapta al tema */
-.sidebar .login-card {
-  background: var(--sidebar-card-bg) !important;
-  border: 1px solid var(--sidebar-border) !important;
+.welcome-card p,
+.login-card p {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.sidebar .login-card .card-body {
-  padding: 2.5rem 2rem !important;
-  text-align: center !important;
+.sidebar.dark .welcome-card p,
+.sidebar.dark .login-card p {
+  color: #bbb;
 }
 
-.sidebar .login-card h5 {
-  font-weight: 700 !important;
-  font-size: 1.5rem !important;
-  margin-bottom: 1rem !important;
-  color: var(--sidebar-text) !important;
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 16px;
 }
 
-.sidebar .login-card p {
-  font-size: 1.1rem !important;
-  margin-bottom: 2rem !important;
-  line-height: 1.6 !important;
-  color: var(--sidebar-text-secondary) !important;
+.user-avatar-large {
+  background: var(--gradient-primary);
+  color: #fff;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  box-shadow: 0 6px 20px rgba(162, 89, 255, 0.25);
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Info card */
-.sidebar .info-card {
-  background: var(--sidebar-card-bg) !important;
-  border: 1px solid var(--sidebar-border) !important;
+.user-avatar-large:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-hover);
 }
 
-.sidebar .info-card .card-body {
-  padding: 2rem !important;
+/* Mejorar botones - centrados y con mejor espaciado */
+.btn-modern, .btn-login {
+  border-radius: 25px;
+  font-weight: 500;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 280px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
 }
 
-.sidebar .info-card h6 {
-  color: var(--sidebar-text) !important;
-  font-weight: 700 !important;
-  font-size: 1.2rem !important;
-  margin-bottom: 1.2rem !important;
-  position: relative !important;
+.btn-modern::before, .btn-login::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: left 0.3s ease;
+  z-index: -1;
 }
 
-.sidebar .info-card h6::after {
-  content: '' !important;
-  position: absolute !important;
-  bottom: -8px !important;
-  left: 0 !important;
-  width: 40px !important;
-  height: 4px !important;
-  background: var(--sidebar-gradient-secondary) !important;
-  border-radius: 2px !important;
+.btn-modern:hover::before, .btn-login:hover::before {
+  left: 0;
 }
 
-.sidebar .info-card .small,
-.sidebar .info-card p {
-  color: var(--sidebar-text-secondary) !important;
-  line-height: 1.7 !important;
-  font-size: 1rem !important;
+.btn-modern:hover, .btn-login:hover {
+  color: #fff !important;
+  border-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  text-decoration: none;
 }
 
-/* Features card */
-.sidebar .features-card {
-  background: var(--sidebar-card-bg) !important;
-  border: 1px solid var(--sidebar-border) !important;
+.btn-login.btn-primary {
+  border: none;
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(46, 216, 255, 0.25);
 }
 
-.sidebar .features-card .card-body {
-  padding: 1.5rem !important;
+.btn-login.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  filter: brightness(1.1);
+  color: #fff !important;
 }
 
-.sidebar .features-title {
-  color: var(--sidebar-text) !important;
-  font-weight: 600 !important;
-  font-size: 1rem !important;
-  margin-bottom: 1rem !important;
+/* Mejorar tarjetas de información */
+.info-card .card-body,
+.features-card .card-body {
+  padding: 20px;
 }
 
-.sidebar .feature-item {
-  display: flex !important;
-  align-items: center !important;
-  margin-bottom: 0.8rem !important;
-  font-size: 0.95rem !important;
+.info-card h6, .features-title {
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.sidebar .feature-item:last-child {
-  margin-bottom: 0 !important;
+.info-card h6::before, .features-title::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
 }
 
-.sidebar .feature-icon {
-  width: 8px !important;
-  height: 8px !important;
-  background: var(--sidebar-gradient-secondary) !important;
-  border-radius: 50% !important;
-  margin-right: 0.8rem !important;
-  flex-shrink: 0 !important;
+.info-card p {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+  text-align: left;
 }
 
-.sidebar .feature-text {
-  color: var(--sidebar-text) !important;
-  line-height: 1.4 !important;
+.sidebar.dark .info-card p {
+  color: #bbb;
 }
 
-/* Stats grid para la actividad del usuario */
-.sidebar .stats-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 1rem !important;
-  margin-top: 1rem !important;
+.features-card {
+  margin-bottom: 16px;
 }
 
-.sidebar .stat-item {
-  text-align: center !important;
-  padding: 1rem !important;
-  background: rgba(102, 126, 234, 0.1) !important;
-  border-radius: 12px !important;
-  transition: var(--sidebar-transition) !important;
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: var(--color-text-dark);
+  padding: 10px 8px;
+  transition: all 0.3s ease;
+  border-radius: 10px;
 }
 
-.sidebar.dark .stat-item {
-  background: rgba(66, 153, 225, 0.1) !important;
+.feature-item:hover {
+  background: var(--gradient-subtle);
+  transform: translateX(4px);
 }
 
-.sidebar .stat-number {
-  font-size: 1.5rem !important;
-  font-weight: 700 !important;
-  color: var(--sidebar-text) !important;
+.sidebar.dark .feature-item {
+  color: var(--color-text-light);
 }
 
-.sidebar .stat-label {
-  font-size: 0.8rem !important;
-  color: var(--sidebar-text-secondary) !important;
-  margin-top: 0.25rem !important;
+.feature-icon {
+  width: 20px;
+  height: 20px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(46, 216, 255, 0.20);
+  flex-shrink: 0;
 }
 
-/* Botones */
-.sidebar .btn-modern,
-.sidebar .btn-login {
-  border-radius: 50px !important;
-  padding: 1rem 2rem !important;
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.8px !important;
-  transition: var(--sidebar-transition) !important;
-  font-size: 0.9rem !important;
-  width: 100% !important;
-  border: none !important;
+.feature-icon::after {
+  content: '✓';
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-/* Botón moderno para welcome card */
-.sidebar .btn-modern.btn-outline-primary {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border: 2px solid rgba(255, 255, 255, 0.4) !important;
-  color: white !important;
-  backdrop-filter: blur(10px) !important;
+.feature-text {
+  font-weight: 500;
 }
 
-.sidebar .btn-modern.btn-outline-primary:hover {
-  background: rgba(255, 255, 255, 0.25) !important;
-  border-color: rgba(255, 255, 255, 0.6) !important;
-  transform: translateY(-3px) !important;
-  color: white !important;
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2) !important;
+/* Botón de cerrar centrado */
+.btn-close-sidebar {
+  border-radius: 25px;
+  font-weight: 500;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  margin-top: 16px;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  background: transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
-/* Botones de login - adaptativos al tema */
-.sidebar .btn-login.btn-primary {
-  background: var(--sidebar-gradient-secondary) !important;
-  border: none !important;
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+.btn-close-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: left 0.3s ease;
+  z-index: -1;
 }
 
-.sidebar .btn-login.btn-primary:hover {
-  transform: translateY(-3px) !important;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5) !important;
-  filter: brightness(1.1) !important;
+.btn-close-sidebar:hover::before {
+  left: 0;
 }
 
-.sidebar .btn-login.btn-outline-primary {
-  border: 2px solid transparent !important;
-  color: var(--sidebar-text) !important;
-  background: transparent !important;
-  position: relative !important;
-  overflow: hidden !important;
+.btn-close-sidebar:hover {
+  color: #fff;
+  border-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
-.sidebar .btn-login.btn-outline-primary::before {
-  content: '' !important;
-  position: absolute !important;
-  inset: 0 !important;
-  padding: 2px !important;
-  background: var(--sidebar-gradient-secondary) !important;
-  border-radius: inherit !important;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
-  mask-composite: exclude !important;
-  -webkit-mask-composite: xor !important;
-}
-
-.sidebar .btn-login.btn-outline-primary:hover {
-  background: var(--sidebar-gradient-secondary) !important;
-  transform: translateY(-3px) !important;
-  color: white !important;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
-}
-
-/* Animaciones de entrada */
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.sidebar .welcome-card,
-.sidebar .login-card,
-.sidebar .info-card,
-.sidebar .features-card {
-  animation: slideInUp 0.6s ease-out !important;
-}
-
-.sidebar .welcome-card { animation-delay: 0s !important; }
-.sidebar .login-card { animation-delay: 0.1s !important; }
-.sidebar .info-card { animation-delay: 0.2s !important; }
-.sidebar .features-card { animation-delay: 0.3s !important; }
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .sidebar {
-    padding: 1.5rem 1rem !important;
-  }
-  
-  .sidebar .welcome-card .card-body,
-  .sidebar .login-card .card-body {
-    padding: 2rem 1.5rem !important;
-  }
-  
-  .sidebar .info-card .card-body,
-  .sidebar .features-card .card-body {
-    padding: 1.5rem !important;
-  }
-  
-  .sidebar .sidebar-brand h3 {
-    font-size: 1.6rem !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .sidebar {
-    padding: 1rem 0.75rem !important;
-  }
-  
-  .sidebar .welcome-card .card-body,
-  .sidebar .login-card .card-body {
-    padding: 1.5rem 1rem !important;
-  }
-  
-  .sidebar .sidebar-brand h3 {
-    font-size: 1.4rem !important;
-  }
-  
-  .sidebar .btn-modern,
-  .sidebar .btn-login {
-    padding: 0.8rem 1.5rem !important;
-    font-size: 0.8rem !important;
-  }
-}
-
-/* Efectos especiales para modo oscuro */
-.sidebar.dark .welcome-card {
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
-              0 0 20px rgba(74, 85, 104, 0.3) !important;
-}
-
-.sidebar.dark .welcome-card:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
-              0 0 25px rgba(74, 85, 104, 0.4) !important;
-}
-
-.sidebar.dark .btn-login.btn-primary {
-  box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4) !important;
-}
-
-.sidebar.dark .btn-login.btn-primary:hover {
-  box-shadow: 0 8px 25px rgba(66, 153, 225, 0.5) !important;
-}
-
-.sidebar.dark .user-avatar-large {
-  background: var(--sidebar-user-avatar-bg) !important;
-  border-color: rgba(255, 255, 255, 0.2) !important;
-}
-
-/* Mejoras de accesibilidad */
-.sidebar .btn-modern:focus,
-.sidebar .btn-login:focus {
-  outline: 2px solid var(--sidebar-gradient-secondary) !important;
-  outline-offset: 2px !important;
-}
-
-/* Transiciones suaves para todos los elementos interactivos */
-.sidebar * {
-  transition: var(--sidebar-transition) !important;
-}
-
-/* Estados de carga */
 .sidebar.loading {
-  opacity: 0.7 !important;
-  pointer-events: none !important;
+  opacity: 0.7;
+  pointer-events: none;
 }
 
-.sidebar.loading * {
-  animation: pulse 1.5s ease-in-out infinite !important;
+/* Logo en sidebar */
+.sidebar .navbar-logo {
+  height: 80px;
+  width: auto;
+  max-width: 200px;
+  margin: 0 auto 16px auto;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(46, 216, 255, 0.15));
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+/* Responsive */
+@media (max-width: 991px) {
+  .sidebar {
+    width: 100vw;
+    min-width: unset;
+    padding: 20px 16px;
+  }
+  
+  .user-avatar-large {
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+  
+  .btn-modern, .btn-login {
+    max-width: 100%;
+    font-size: 1rem;
+  }
 }
 
+@media (max-width: 600px) {
+  .sidebar {
+    padding: 16px 12px;
+  }
+  
+  .user-avatar-large {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+  
+  .sidebar-brand {
+    padding: 16px 12px;
+  }
+  
+  .welcome-card .card-body,
+  .login-card .card-body {
+    padding: 20px 16px;
+  }
+  
+  .btn-modern, .btn-login {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+}
